@@ -1,32 +1,23 @@
-# sqlinjection
-This sample application shows an SQL injection in MySQL from a Python web application
+# votes
+This sample application simulates a vote exchange mechanism with several services. The API receives, stores in memory and delivers
+votes on given elections. A Windows Phone mobile application retrieves the number of votes. Two different applications are
+provided to send votes, both using natural interfaces. The first one uses a Kinect peripheral, and the second one a Leap Motion.
 
 ## Architecture
-The application is composed with two services:
+The application allows for four services for the API implementation:
 
-- **injector** : the web application that causes an SQL injection;
-- **mysql** : the database used by the application.
+- **api-core.net** : version written in Core .NET (1.0.0-beta4);
+- **api-python** : version written in Python (Flask framework);
+- **api-java** : version written in Java 8 (Spark framework);
+- **api-node.js** : version written in Node.JS with Express.
 
 ## Use
-
 Easiest way to run the application is to use the docker-compose.yml file that is provided :
 
-    git clone https://github.com/ensibs-cybersec/sqlinjection.git
-    cd sqlinjection
+    git clone https://github.com/esaip-dotnet/votes.git
+    cd votes
     docker-compose build
     docker-compose up
 
-The application is then available under 
-> http://localhost:8080
-
-Start by initializing the database.
-
-Then, in the text area, try the following values, and click on the second button:
-- **Lagaffe**: this should bring you one result, namely Gaston Lagaffe;
-- **Lagaffe' OR '1'='1**: this should bring all results in the database table (2 rows);
-- **Lagaffe'; DROP TABLE individuals; --**: this will destroy the database table, so that every later request will fail.
-
-## Notes
-
-An SQL injection is a security breach. This application serves only the academic purpose of explaining such a code failure.
-It should of course never be used for anything different.
+Then run the Kinect or Leap application and follow the voting instruction. Once votes are recorded, use the mobile application
+to retrieve the results for the election.
