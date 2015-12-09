@@ -1,13 +1,13 @@
 {
-  "name"         : "votesmobileAPI",
-  "version"      : "0.0.1",
-  "description"  : "Mortgage Portal, a sample application for ENI Editions Docker book",
+  "name"         : "System for vote API",
+  "version"      : "0.2",
+  "description"  : "An API to exchange data about elections between vote system and users",
   "main"         : "index.js",
-  "author"       : "",
+  "author"       : "alexkuva",
   "license"      : "MIT",
   "repository"   : {
     "type" : "git",
-    "url" : "git://github.com/antoine-f/votesapi.git"
+    "url" : "https://github.com/ezria/votes.git"
   },
   "dependencies" : {
     "express"         : "~4.7.2",
