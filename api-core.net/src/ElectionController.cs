@@ -10,7 +10,7 @@ namespace VotesAPI
 		private static Dictionary<string,Election> elections = new Dictionary<string, Election>();
 
 		[HttpGet("Init")]
-		public string pageElections(){
+		public string pageInit(){
 			Election election = new Election("BDE", new List<Vote>(new Vote(1, "Corentin")));
 			elections.Add(election.id, election);
 			return "Elections initialized";
@@ -65,7 +65,7 @@ namespace VotesAPI
 				}
 				compteurElection++;
 			}
-            retour += "]";
+            json += "]";
             return json;
         }
 		
