@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System;
 using System.Net;
 using System.Timers;
-namespace TD_YMCA
+namespace VoteByKinectProject
 {
     public partial class MainWindow : Window
     {
@@ -139,11 +139,6 @@ namespace TD_YMCA
             Point PosCentreEpaule = TransformCameraPoint(joints[JointType.SpineShoulder].Position);
             Point PosCoudeGauche = TransformCameraPoint(joints[JointType.ElbowLeft].Position);
             Point PosCoudeDroit = TransformCameraPoint(joints[JointType.ElbowRight].Position);
-            //Debug.WriteLine(string.Format("MG:{0} / MD:{1} / CE:{2} / CG:{3} / CD:{4}", PosMainGauche, PosMainDroite, PosCentreEpaule, PosCoudeGauche, PosCoudeDroit));
-            //Debug.WriteLine(string.Format("MG:{0}-{1} / MD:{2}-{3} / CE:{4}-{5} / CG:{6}-{7} / CD:{8}-{9}", Convert.ToInt16(PosMainGauche.X), Convert.ToInt16(PosMainGauche.Y), Convert.ToInt16(PosMainDroite.X),
-            //Convert.ToInt16(PosMainDroite.Y), Convert.ToInt16(PosCentreEpaule.X), Convert.ToInt16(PosCentreEpaule.Y), Convert.ToInt16(PosCoudeGauche.X), Convert.ToInt16(PosCoudeGauche.Y), Convert.ToInt16(PosCoudeDroit.X), Convert.ToInt16(PosCoudeDroit.Y)));
-            //File.AppendAllText(@"C:\temp\kinectdata.csv", string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}" + Environment.NewLine, Convert.ToInt16(PosMainGauche.X), Convert.ToInt16(PosMainGauche.Y), Convert.ToInt16(PosMainDroite.X), Convert.ToInt16(PosMainDroite.Y), Convert.ToInt16(PosCentreEpaule.X), Convert.ToInt16(PosCentreEpaule.Y), Convert.ToInt16(PosCoudeGauche.X), Convert.ToInt16(PosCoudeGauche.Y), Convert.ToInt16(PosCoudeDroit.X), Convert.ToInt16(PosCoudeDroit.Y)));
-            //Votant.Text(ListeVotant[0]);
 
             if (listeVotant.Count != 0)
             {

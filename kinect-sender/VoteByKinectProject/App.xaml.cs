@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace TD_YMCA
+namespace VoteByKinectProject
 {
     /// <summary>
     /// Interaction logic for App.xaml
