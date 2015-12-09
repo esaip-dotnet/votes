@@ -94,7 +94,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 	}
 });
 
-app.get('*', function(req, res){
+app.all('*', function(req, res){
   res.send('400, this URL does not exist!', 400);
 });
 
