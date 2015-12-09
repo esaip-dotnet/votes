@@ -57,7 +57,7 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 	
 	if(election === ""){
 		res.status(404);
-		res.send("404, this election does not exist!");
+		res.send("This election does not exist!");
 	}else{
 		res.contentType('application/json');
 		res.status(200);
@@ -87,7 +87,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 	}
 	if(election === ""){
 		res.status(404);
-		res.send("404, this election does not exist!");
+		res.send("This election does not exist!");
 	}else{
 		res.status(200)
 		res.json(election);
@@ -95,7 +95,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 });
 
 app.all('*', function(req, res){
-  res.send('400, this URL does not exist!', 400);
+  res.send('This URL does not exist!', 400);
 });
 
 app.listen(port);
