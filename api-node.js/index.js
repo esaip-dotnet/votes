@@ -69,7 +69,7 @@ app.put('/api/Votes/Elections/:id', function(req, res) {
 	console.log(req.params);
 	var election = {id: req.params.id, votes:[]};
 	elections.push(election);
-	res.status(200);
+	res.status(201);
 	res.send(elections);
 });
 
@@ -89,7 +89,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 		res.status(404);
 		res.send("This election does not exist!");
 	}else{
-		res.status(200)
+		res.status(201)
 		res.json(election);
 	}
 });
