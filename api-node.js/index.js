@@ -67,10 +67,23 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 
 app.put('/api/Votes/Elections/:id', function(req, res) {
 	console.log(req.params);
-	var election = {id: req.params.id, votes:[]};
-	elections.push(election);
-	res.status(201);
-	res.send(elections);
+    var VerifExistence = false;
+    for(i in elections){
+      if(elections[i].id === req.params.id){
+        VerifExistence = true;
+      }
+    }
+    if(VerifExistence === true){
+        elections.splice(i,1);
+        res.status(200);
+        res.send(elections);
+    }
+    else{
+      var election = {id: req.params.id, votes:[]};
+      elections.push(election);
+      res.status(201);
+      res.send(elections);
+    }
 });
 
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
@@ -81,8 +94,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 		console.log(elections[i]);
 		if(elections[i].id === req.params.id){
 			elections[i].votes.push(req.body);
-			election = elections[i];
-			
+			election = elections[i];	
 		}
 	}
 	if(election === ""){
