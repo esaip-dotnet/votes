@@ -1,0 +1,10 @@
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\bin\Debug\VoteByKinectProject.exe.config
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\VoteByKinectProject.csprojResolveAssemblyReference.cache
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\MainWindow.baml
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\MainWindow.g.cs
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\App.g.cs
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\VoteByKinectProject_MarkupCompile.cache
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\VoteByKinectProject.g.resources
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\VoteByKinectProject.Properties.Resources.resources
+C:\Users\corentin\votes\kinect-sender\TD_YMCA\obj\Debug\VoteByKinectProject.csproj.GenerateResource.Cache
+C:\Users\corentin\votes\kinect-sender\VoteByKinectProject\bin\Debug\VoteByKinectProject.exe.config
