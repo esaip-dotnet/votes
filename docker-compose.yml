@@ -5,7 +5,7 @@ api1:
 api2:
   build: api-python
   ports:
-    - "81:5004"
+    - "81:5000"
 api3:
   build: api-java
   ports:
