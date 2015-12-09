@@ -2,7 +2,6 @@ from flask import Flask,jsonify
 from flask import make_response
 from flask import Response
 from flask import request
-from flask import abort, redirect, url_for
 from reportlab.pdfgen import canvas
 
 import requests, json
@@ -49,7 +48,7 @@ def api_elections():
 def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
-        abort(404)
+        abort(400)
     return Response(json.dumps(election[0]),mimetype='application/json')
 
 
