@@ -62,12 +62,8 @@ def create_election():
 def api_createVote():
     if not request.json or not 'choix' in request.json:
         abort(400)
-    vote = {
-        #'id': elections[-1]['id'] +1,
-                'choix': request.json.get('choix'),
-                'prenom': request.json.get('prenom'),
-            }
-    elections.append(vote)
+    vote = [vote for vote in elections if vote['vote'] == vote]
+    vote.append(request.body)
     return Response(json.dumps(vote), mimetype='application/json'),201
 
 if __name__ == '__main__':
