@@ -94,5 +94,9 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 	}
 });
 
+app.get('*', function(req, res){
+  res.send('400, this URL does not exist!', 400); //le contenu de la page en 1er paramètre, et en second le code erreur
+});
+
 app.listen(port);
 console.log("App listening on port " + port);
