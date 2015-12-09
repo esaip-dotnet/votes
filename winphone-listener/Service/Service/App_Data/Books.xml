@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Election id="BDE">
+  <votes choix="1" prenom="Adel"/>
+  <votes choix="2" prenom="Quentin"/>
+  <votes choix="2" prenom="Fadwa"/>
+</Election>
