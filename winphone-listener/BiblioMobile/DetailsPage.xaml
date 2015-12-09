@@ -1,0 +1,46 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="BiblioMobile.DetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" Margin="0,4,0,-4">
+
+    <!--L'exemple de données ci-dessus et le premier élément de l'exemple de collecte de données ci-dessous sont affectés au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{Binding Items[0]}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contient le nom de l'application et le titre de la page-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="APPLICATION VOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding LineOne}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel contient le texte des détails. Placez tout contenu supplémentaire ici-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding LineFour}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding LineFive}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+        </Grid>
+
+        <!--Supprimez les commentaires pour voir une grille d'alignement qui vous aidera à vous assurer que vos contrôles sont
+            alignés sur les limites communes.  L'image a une marge supérieure de -32px pour
+            tenir compte de la barre d'état système. Attribuez-lui la valeur 0 (ou supprimez la marge)
+            si la barre d'état système est masquée.
+
+            Avant l'envoi, supprimez ce XAML et l'image proprement dite.-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+    </Grid>
+
+</phone:PhoneApplicationPage>
