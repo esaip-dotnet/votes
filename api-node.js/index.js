@@ -30,32 +30,13 @@ var e1 = {
         'prenom': 'Fadwa'
       }]
 	  };
-var e2 = {
-    'id': 'BDE2',
-    'votes': [
-      {
-        'choix': 42,
-        'prenom': 'Adel'
-      },
-      {
-        'choix': 43,
-        'prenom': 'Quentin'
-      },
-      {
-        'choix': 44,
-        'prenom': 'Fadwa'
-      }]
-  };
-  
- var post = {};
+	  
 elections.push(e1);
-elections.push(e2);
-// elections.toString();
-// console.log(
 
 app.get('/api/Votes/Elections', function(req, res) {
 	
 	res.contentType('application/json');
+	res.status(200);
 	res.json(elections);
 });
 
@@ -73,25 +54,48 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 			election = elections[i];
 		}
 	}
-	res.contentType('application/json');
-	res.json(election);
+	
+	if(election === ""){
+		res.status(404);
+		res.send("404, this election does not exist!");
+	}else{
+		res.contentType('application/json');
+		res.status(200);
+		res.json(election);
+	}
 });
 
 app.put('/api/Votes/Elections/:id', function(req, res) {
-	// elections[]
+	console.log(req.params);
+	var election = {id: req.params.id, votes:[]};
+	elections.push(election);
+	res.status(200);
+	res.send(elections);
 });
 
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
-
 	var election = '';
 	console.log("id", req.params.id);
-	console.log(req);
-	// for(i in elections){
-		// console.log(elections[i]);
-		// if(elections[i].id === req.params.id){
-			// elections[i].votes.push(req.body.) = ;
-		// }
-	// }
+	console.log(req.body);
+	for(i in elections){
+		console.log(elections[i]);
+		if(elections[i].id === req.params.id){
+			elections[i].votes.push(req.body);
+			election = elections[i];
+			
+		}
+	}
+	if(election === ""){
+		res.status(404);
+		res.send("404, this election does not exist!");
+	}else{
+		res.status(200)
+		res.json(election);
+	}
+});
+
+app.get('*', function(req, res){
+  res.send('400, this URL does not exist!', 400); //le contenu de la page en 1er paramètre, et en second le code erreur
 });
 
 app.listen(port);

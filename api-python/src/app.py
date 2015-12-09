@@ -2,6 +2,7 @@ from flask import Flask,jsonify
 from flask import make_response
 from flask import Response
 from flask import request
+from flask import abort, redirect, url_for
 from reportlab.pdfgen import canvas
 
 import requests, json
@@ -9,7 +10,7 @@ import requests, json
 app = Flask(__name__)
 
 elections = [
-        {"id":"BD",
+        {"id":"BDE",
              "votes":
             [
                 {
@@ -20,9 +21,24 @@ elections = [
                     "choix":2,
                     "prenom":"Antoine"
                 }
-            ],
-            "id":"BDE"
+            ]
+         },
+         {   
+         "id":"BDI",
+             "votes":
+            [
+                {
+                    "choix":7,
+                    "prenom":"Martial"
+                },
+                {
+                    "choix":2,
+                    "prenom":"Zara"
+                }
+            ]     
+
         }
+      
 ]
 
 @app.route('/Elections', methods=['GET'])
@@ -34,23 +50,25 @@ def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
         abort(404)
-    return jsonify({'election':election[0]})
+    return Response(json.dumps(election[0]),mimetype='application/json')
 
 
+@app.route('/Elections/<electionId>', methods= ['PUT'])
+def create_election():
+    return Response(json.dumps(), mimetype='application/json')
 
-@app.route('/Elections/<electionId>/votes', methods=['POST'])
+
+@app.route('/Elections/<electionId>/Votes', methods=['POST'])
 def api_createVote():
     if not request.json or not 'choix' in request.json:
-        abort(404)
+        abort(400)
     vote = {
         #'id': elections[-1]['id'] +1,
-                'choix': request.json['choix'],
-                'prenom': request.json['prenom',""]
+                'choix': request.json.get('choix'),
+                'prenom': request.json.get('prenom'),
             }
-        
-    
     elections.append(vote)
-    return jsonify({'vote':vote}),201
+    return Response(json.dumps(vote), mimetype='application/json'),201
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
