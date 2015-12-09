@@ -12,6 +12,6 @@ RUN apt-get install -y python-reportlab
 
 COPY src/ .
 
-EXPOSE 5000
+EXPOSE 5004
 ENTRYPOINT ["python", "-u"]
 CMD ["app.py"]
