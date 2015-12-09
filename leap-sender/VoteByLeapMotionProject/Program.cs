@@ -9,9 +9,15 @@ using System;
 using System.Threading;
 using Leap;
 using System.Collections.Generic;
+///////////
+using System.Linq;
+using System.Text;
+using System.Net;
+using System.IO;
 
 namespace VoteByLeapMotionProject
 {
+
     class SampleListener : Listener
     {
         private Object thisLock = new Object();
@@ -25,7 +31,8 @@ namespace VoteByLeapMotionProject
         /// Permet d'initialiser les éléments de base de l'élection. 
         /// </summary>
         public void initSampleListener() {
-            election = new Election("Referendum BDE");
+          //  election = new Election("Referendum BDE");
+            election = new Election("BDE");
             Choix choixOui = new Choix(1, "Oui", 1);
             election.getListeChoix().Add(choixOui.getNombreDeMainPourChoix(), choixOui);
             Choix choixNon = new Choix(2, "Non", 2);
@@ -126,7 +133,7 @@ namespace VoteByLeapMotionProject
                     SafeWriteLine(prenom);
                     SafeWriteLine("Votre vote a bien été pris en compte, merci d'avoir voté!");
                     election.getListeVote().Add(new Vote(prenom, choixEnCours));
-                    envoiInformation(generateXML(election));
+                    envoiInformation(generateJSon(election));
                     choixEnCours = null;
                     compteur = 0;
                     afficheInfo(election);
@@ -141,10 +148,7 @@ namespace VoteByLeapMotionProject
 
         private void afficheInfo(Election election)
         {
-            
             SafeWriteLine("En attente de positionnement des mains.");
-      
-            election.getListeChoix().ContainsKey
             foreach (KeyValuePair<int, Choix> entreeDictionnaire in election.getListeChoix())
             {
                 SafeWriteLine("Pour voter " + entreeDictionnaire.Value.getNom() + ", positionnez " + entreeDictionnaire.Key + " main(s)");
@@ -159,15 +163,15 @@ namespace VoteByLeapMotionProject
         /// <returns>Retourne la chaine de caractère au format JSON</returns>
         public String generateJSon(Election election)
         {
-            String json = "{'id':'"+election.getNom()+"','votes':[";
+            String json = "";
 
             for (int i = 0; i < election.getListeVote().Count; i++)
             {
                 Vote vote = election.getListeVote()[i];
-                json += "{'choix':'" + vote.getChoixFait().getId() + "', 'prenom':'" + vote.getPrenom() + "'}";
+                json += "{'choix':" + vote.getChoixFait().getNombreDeMainPourChoix() + ", 'prenom':'" + vote.getPrenom() + "'}";
                 //Pensez à ajouter les virgules en cas d'envoi de plusieurs lignes.
             }
-            json += "]}";
+        
             return json;
         }
         /// <summary>
@@ -179,11 +183,13 @@ namespace VoteByLeapMotionProject
         {
             String xml = "<Election id:\"" + election.getNom() + "\">";
             foreach(Vote vote in election.getListeVote()){
-                xml += "<Vote choix:\"" + vote.getChoixFait().getId() + "\" prenom:\"" + vote.getPrenom() + "\"/>";
+                xml += "<Vote choix:\"" + vote.getChoixFait().getNombreDeMainPourChoix() + "\" prenom:\"" + vote.getPrenom() + "\"/>";
             }
             xml += "</Election>";
             return xml;
         }
+
+
         /// <summary>
         /// Fonction permettant d'envoyer les informations vers le serveur
         /// TODO
@@ -191,10 +197,25 @@ namespace VoteByLeapMotionProject
         /// <param name="fichier">demande les données à envoyer (Format JSON ou XML, à appeler avec les fonctions generateXML et generateJSon</param>
         public void envoiInformation(String fichier)
         {
-            String url = "coreosjpg.cloudapp.net/votes";
-            SafeWriteLine("url = " +url + " xml "+fichier);
+            
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("http://coreosjpg.cloudapp.net/api/votes/Elections/BDE/Votes");
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            StreamWriter streamWriter = new StreamWriter(request.GetRequestStream());
+            Console.WriteLine(fichier);
+            streamWriter.Write(fichier);
+            streamWriter.Close();
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            
+   
+       }
+
+        private string generateXML(string fichier)
+        {
+            throw new NotImplementedException();
         }
     }
+     
 
     class Sample
     {
@@ -205,7 +226,7 @@ namespace VoteByLeapMotionProject
             Controller controller = new Controller();
             // Keep this process running until Enter is pressed
             controller.AddListener(listener);
-            Console.WriteLine("Appuyez sur la touche échape pour quitter: \n");
+         //   Console.WriteLine("Appuyez sur la touche échape pour quitter: \n");
             listener.initSampleListener();
             while (true) ;
 
