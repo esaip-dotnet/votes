@@ -49,7 +49,7 @@ def api_elections():
 def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
-        abort(404)
+        abort(400)
     return Response(json.dumps(election[0]),mimetype='application/json')
 
 
@@ -69,6 +69,7 @@ def api_createVote():
             }
     elections.append(vote)
     return Response(json.dumps(vote), mimetype='application/json'),201
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
