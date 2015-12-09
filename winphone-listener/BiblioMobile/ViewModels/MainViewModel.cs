@@ -11,6 +11,7 @@ namespace BiblioMobile.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private List<String> ListePrenomOui = new List<string>();
         const string apiUrl = @"http://coreosjpg.cloudapp.net/api/Votes/Elections";
         public MainViewModel()
         {
@@ -39,6 +40,16 @@ namespace BiblioMobile.ViewModels
                 webClient.DownloadStringAsync(new Uri(apiUrl));
             }
         }
+
+        private string getlisteprenom(List<string> listeprenom, int nb)
+        {
+            for (int i = 0; i < nb; i++)
+            {
+                return listeprenom[i] + Environment.NewLine;
+             //   return "mwahah";
+            }
+            return string.Empty;
+        }
         private void webClient_DownloadCatalogCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             try
@@ -46,20 +57,19 @@ namespace BiblioMobile.ViewModels
                 this.Items.Clear();
                 if (e.Result != null)
                 {
-                    //BookDetails B1 = new BookDetails();
-                    //votes v1 = new votes();
+                    
 
-                    var books = JsonConvert.DeserializeObject<BookDetails[]>(e.Result);
+                    var elections = JsonConvert.DeserializeObject<ElectionDetails[]>(e.Result);
                     int id = 0;
-                    foreach (BookDetails book in books)
+                    foreach (ElectionDetails election in elections)
                     {
                         List<votes> LV1 = new List<votes>();
                         int Nb_Oui = 0;
                         int Nb_Non = 0;
-                        List<String> ListePrenomOui = new List<string>();
+                        
                         List<String> ListePrenomNon = new List<string>();
 
-                        foreach (var votes in book.votes)
+                        foreach (var votes in election.votes)
                         {
                             if (votes.choix == 1)
                             {
@@ -69,24 +79,21 @@ namespace BiblioMobile.ViewModels
                             else
                             {
                                 Nb_Non++;
-                                ListePrenomOui.Add(votes.prenom);
+                                ListePrenomNon.Add(votes.prenom);
                             }
                             
                         }
                         this.Items.Add(new ItemViewModel()
                         {
                             ID = (id++).ToString(),
-                            
-                            LineOne = book.id,
+
+                            LineOne = election.id,
                             LineTwo = "Votes: Oui = "+ Nb_Oui + " Non = " + Nb_Non,
-                            LineThree = "Total = "+ book.votes.Count.ToString() + " votes",
-                            //LineFour = "Coucou",
-                            
-                            //for(int i=0; i<=ListePrenomOui.Count; i++){
-                            //  LineFour = ListePrenomOui[i] + "\n";
-                            //}
-                            
-                            
+                            LineThree = "Total = " + election.votes.Count.ToString() + " votes",
+                           // LineFour = "Coucou \n Kikou",
+                           // LineFive = "Michel",
+                            //LineFour = this.getlisteprenom(ListePrenomOui, Nb_Oui),
+    
                         });
                     } this.IsDataLoaded = true;
                 }

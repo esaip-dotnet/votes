@@ -105,5 +105,9 @@ namespace BiblioMobile.ViewModels
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public string LineFour { get; set; }
+
+        public string LineFive { get; set; }
     }
 }
