@@ -49,7 +49,7 @@ def api_elections():
 def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
-        abort(400)
+        abort(404)
     return Response(json.dumps(election[0]),mimetype='application/json')
 
 
@@ -62,14 +62,9 @@ def create_election():
 def api_createVote():
     if not request.json or not 'choix' in request.json:
         abort(400)
-    vote = {
-        #'id': elections[-1]['id'] +1,
-                'choix': request.json.get('choix'),
-                'prenom': request.json.get('prenom'),
-            }
-    elections.append(vote)
+    vote = [vote for vote in elections if vote['vote'] == vote]
+    vote.append(request.body)
     return Response(json.dumps(vote), mimetype='application/json'),201
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
