@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask,jsonify
 from flask import make_response
+from flask import Response
 from flask import request
 from reportlab.pdfgen import canvas
 
@@ -8,22 +9,25 @@ import requests, json
 app = Flask(__name__)
 
 elections = [
-        {
-
-            "id":"BDE",
-            "votes":
+        {"id":"BD",
+             "votes":
             [
                 {
                     "choix":1,
                     "prenom":"JP"
+                },
+                {
+                    "choix":2,
+                    "prenom":"Antoine"
                 }
-            ]
+            ],
+            "id":"BDE"
         }
 ]
 
 @app.route('/Elections', methods=['GET'])
 def api_elections():
-    return jsonify({'elections':elections})
+    return Response(json.dumps(elections),  mimetype='application/json')
 
 @app.route('/Elections/<electionId>', methods=['GET'])
 def api_election(electionId):
@@ -36,11 +40,11 @@ def api_election(electionId):
 
 @app.route('/Elections/<electionId>/votes', methods=['POST'])
 def api_createVote():
-    if not request.json or not 'choix' in request.json
+    if not request.json or not 'choix' in request.json:
         abort(404)
     vote = {
         #'id': elections[-1]['id'] +1,
-                'choix': request.json['choix']
+                'choix': request.json['choix'],
                 'prenom': request.json['prenom',""]
             }
         
