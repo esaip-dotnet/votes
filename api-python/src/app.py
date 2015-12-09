@@ -40,29 +40,28 @@ elections = [
       
 ]
 
-@app.route('/Elections', methods=['GET'])
+@app.route('/api/Votes/Elections', methods=['GET'])
 def api_elections():
     return Response(json.dumps(elections),  mimetype='application/json')
 
-@app.route('/Elections/<electionId>', methods=['GET'])
+@app.route('/api/Votes/Elections/<electionId>', methods=['GET'])
 def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
-        abort(400)
+        abort(404)
     return Response(json.dumps(election[0]),mimetype='application/json')
 
 
-@app.route('/Elections/<electionId>', methods= ['PUT'])
+@app.route('/api/Votes/Elections/<electionId>', methods= ['PUT'])
 def create_election():
     return Response(json.dumps(), mimetype='application/json')
 
 
-@app.route('/Elections/<electionId>/Votes', methods=['POST'])
-def api_createVote():
+@app.route('/api/Votes/Elections/<electionId>/Votes', methods=['POST'])
+def api_createVote(vote):
     if not request.json or not 'choix' in request.json:
         abort(400)
-    vote = [vote for vote in elections if vote['vote'] == vote]
-    vote.append(request.body)
+    vote.append(request.json)
     return Response(json.dumps(vote), mimetype='application/json'),201
 
 if __name__ == '__main__':
