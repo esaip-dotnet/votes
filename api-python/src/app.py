@@ -2,6 +2,7 @@ from flask import Flask,jsonify
 from flask import make_response
 from flask import Response
 from flask import request
+from flask import abort, redirect, url_for
 from reportlab.pdfgen import canvas
 
 import requests, json
@@ -63,8 +64,8 @@ def api_createVote():
         abort(400)
     vote = {
         #'id': elections[-1]['id'] +1,
-                'choix': request.json['choix'],
-                'prenom': request.json.get('prenom',""),
+                'choix': request.json.get('choix'),
+                'prenom': request.json.get('prenom'),
             }
     elections.append(vote)
     return Response(json.dumps(vote), mimetype='application/json'),201
