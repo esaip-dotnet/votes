@@ -1,8 +1,19 @@
 # Vote By Kinect Project
 
-Kinect for Windows Samples
+Kinect for Windows 
 
-What is this?
+## What is this?
 
-This repository contains samples submitted by the Kinect for Windows Developer Community. Submitters intend to help fellow Developers hit the ground running while creating Kinect apps for Windows. Have you come up with a great sample app that deserves to be shared with the OSS community? This is the place to put it!
-How do I get started?
+This repository contains samples submitted by the Kinect for our Vote project in Esaip.
+
+## Architecture
+
+The project is developed with visual studio in C# and XAML.
+
+## How we can vote?
+
+The right hand is to vote "Yes", the left hand is to vote "No".
+To validate this vote we need to block our left hand or right hand during 5 seconds above the shoulder. If we doesn't block our hand during 5 seconds we need to start again from the beginning.
+
+
+
