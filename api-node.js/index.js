@@ -68,10 +68,10 @@ app.put('/api/Votes/Elections/:id', function(req, res) {
     for(i in elections){
       if(elections[i].id === req.params.id){
         VerifExistence = true;
+        elections[i].votes = [];
       }
     }
     if(VerifExistence === true){
-        elections.splice(i,1);
         res.status(200).send(elections);
     }
     else{
@@ -86,7 +86,6 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
   console.log("id", req.params.id);
   console.log(req.body);
   for(i in elections){
-    console.log(elections[i]);
     if(elections[i].id === req.params.id){
       elections[i].votes.push(req.body);
       election = elections[i];
@@ -96,7 +95,7 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
     res.status(404).send("This election does not exist!");
   }
   else{
-    res.status(201).res.json(election);
+    res.status(201).json(election);
   }
 });
 
