@@ -230,6 +230,5 @@ namespace VoteByKinectProject
             }
         }
 
-
     }
 }

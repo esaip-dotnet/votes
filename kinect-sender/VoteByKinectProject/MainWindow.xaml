@@ -7,17 +7,25 @@
         Closing="MainWindow_Closing"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="377*"/>
+            <ColumnDefinition Width="315*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Viewbox Grid.Row="0" HorizontalAlignment="Center">
+        <Viewbox Grid.Row="0" HorizontalAlignment="Center" Margin="346,0,31,0">
             <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
         </Viewbox>
-        <TextBox Grid.Row="1" Name="TexteReconnu" FontSize="40"/>
-        <Label Content="Vote : Référendum BDE" HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.563,3.452"/>
-        <Label Content="Choix : &#xD;&#xA;-Oui (Lever votre main droite)&#xD;&#xA;-Non (Lever votre main gauche)&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,64,0,0" RenderTransformOrigin="0.646,0.711"/>
-        <TextBox HorizontalAlignment="Left" Name ="Votant" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.651,6.289" Margin="10,143,0,0"/>
-        <Label Content="Votant :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,112,0,0"/>
+        <Label Content="Vote : Référendum " HorizontalAlignment="Left" Margin="256,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" Background="{x:Null}" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" ClipToBounds="True" SnapsToDevicePixels="True" FontFamily="Verdana" FontSize="20" Grid.ColumnSpan="2"/>
+        <Label Content="Choix pour voter :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,65,0,0" FontWeight="Bold"/>
+        <Label Content="&#xD;&#xA;- Oui (Lever votre main droite)&#xD;&#xA;- Non (Lever votre main gauche)&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,65,0,0" RenderTransformOrigin="0.646,0.711"/>
+        <TextBox HorizontalAlignment="Left" Name ="Votant" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.651,6.289" Margin="20,145,0,0" FontWeight="Bold" SelectionOpacity="0.6" SelectionBrush="#FFFF3C33"/>
+        <Label Content="Nom du votant :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0" FontWeight="Bold"/>
+        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="34" Margin="244,26,0,0" VerticalAlignment="Top" Width="248" Grid.ColumnSpan="2"/>
+        <Image Margin="168,23,42,407" Source="Image1.png" Stretch="Fill" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="127" Margin="10,60,0,0" VerticalAlignment="Top" Width="181"/>
+        <ProgressBar HorizontalAlignment="Left" Height="29" Margin="11,225,0,0" VerticalAlignment="Top" Width="180" ValueChanged="ProgressBar_ValueChanged"/>
     </Grid>
 </Window>
