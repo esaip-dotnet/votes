@@ -13,7 +13,6 @@ app.use(bodyParser.json()); // parse application/json
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 var elections =[];
-
 var e1 = {
     'id': 'BDE',
     'votes': [
@@ -29,15 +28,15 @@ var e1 = {
         'choix': 2,
         'prenom': 'Fadwa'
       }]
-	  };
+};
 	  
-elections.push(e1);
+elections.push(e1)
+
 
 app.get('/api/Votes/Elections', function(req, res) {
 	
 	res.contentType('application/json');
-	res.status(200);
-	res.json(elections);
+	res.status(200).json(elections);
 });
 
 app.param('id', function (req, res, next, id) {
@@ -56,12 +55,10 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 	}
 	
 	if(election === ""){
-		res.status(404);
-		res.send("This election does not exist!");
+		res.status(404).send("This election does not exist!");
 	}else{
 		res.contentType('application/json');
-		res.status(200);
-		res.json(election);
+		res.status(200).json(election);
 	}
 });
 
@@ -75,39 +72,40 @@ app.put('/api/Votes/Elections/:id', function(req, res) {
     }
     if(VerifExistence === true){
         elections.splice(i,1);
-        res.status(200);
-        res.send(elections);
+        res.status(200).send(elections);
     }
     else{
       var election = {id: req.params.id, votes:[]};
-      elections.push(election);
-      res.status(201);
-      res.send(elections);
+      elections.push(election); 
+      res.status(201).send(elections);
     }
 });
 
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
-	var election = '';
-	console.log("id", req.params.id);
-	console.log(req.body);
-	for(i in elections){
-		console.log(elections[i]);
-		if(elections[i].id === req.params.id){
-			elections[i].votes.push(req.body);
-			election = elections[i];	
-		}
-	}
-	if(election === ""){
-		res.status(404);
-		res.send("This election does not exist!");
-	}else{
-		res.status(201)
-		res.json(election);
-	}
+  var election = '';
+  console.log("id", req.params.id);
+  console.log(req.body);
+  for(i in elections){
+    console.log(elections[i]);
+    if(elections[i].id === req.params.id){
+      elections[i].votes.push(req.body);
+      election = elections[i];
+    }
+  }
+  if(election === ""){
+    res.status(404).send("This election does not exist!");
+  }
+  else{
+    res.status(201).res.json(election);
+  }
+});
+
+app.delete('*',function(req,res){
+  res.status(405).send('Method not allowed!');
 });
 
 app.all('*', function(req, res){
-  res.send('This URL does not exist!', 400);
+   res.status(400).send('This URL does not exist!');
 });
 
 app.listen(port);
