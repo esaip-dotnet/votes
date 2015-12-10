@@ -14,6 +14,12 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Configuration;
+using System.String;
+using System.Runtime.Serialization;
+using System.ServiceModel.Web;
+using System.Runtime.Serialization.Json;
+
 
 namespace VoteByLeapMotionProject
 {
@@ -21,7 +27,7 @@ namespace VoteByLeapMotionProject
     class SampleListener : Listener
     {
         private Object thisLock = new Object();
-        private Election election;
+        private List<Election> elections;
         private Choix choixEnCours = null;
         private int compteur = 0;
         private int DELAIS = 3;
@@ -31,13 +37,51 @@ namespace VoteByLeapMotionProject
         /// Permet d'initialiser les éléments de base de l'élection. 
         /// </summary>
         public void initSampleListener() {
-          //  election = new Election("Referendum BDE");
-            election = new Election("BDE");
-            Choix choixOui = new Choix(1, "Oui", 1);
-            election.getListeChoix().Add(choixOui.getNombreDeMainPourChoix(), choixOui);
-            Choix choixNon = new Choix(2, "Non", 2);
-            election.getListeChoix().Add(choixNon.getNombreDeMainPourChoix(), choixNon);
-            afficheInfo(election);
+            string urlToCall = ConfigurationManager.AppSettings["urlServer"];
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(urlToCall);
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                SafeWriteLine(response.ContentType);
+                Stream streamReader = response.GetResponseStream();
+
+                using (Stream stream = response.GetResponseStream())
+                {
+                    Type serializationTargetType = typeof(List<Election>);
+                    DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(serializationTargetType);
+
+                    elections = (List<Election>)jsonSerializer.ReadObject(stream);
+                }
+                foreach (Election election in elections)
+                {
+                    string[] varSplit = { "'" };
+                    string[] tabLabelChoix = ConfigurationManager.AppSettings["Choix"].Split(varSplit, StringSplitOptions.None);
+                    foreach (string labelChoix in tabLabelChoix)
+                    {
+                        int idChoix = 0;
+                        try
+                        {
+                            idChoix = int.Parse(ConfigurationManager.AppSettings[labelChoix]);
+                            election.choix.Add(idChoix, new Choix() { id = idChoix, nom = labelChoix });
+                        }
+                        catch (Exception e)
+                        {
+                            SafeWriteLine(e.Message);
+                        }
+
+                    }
+                }
+            }
+            catch (WebException we)
+            {
+               
+            }
+            catch (Exception e)
+            {
+            }
+            afficheInfo(elections[0]);
 
         }
         private void SafeWriteLine(String line)
@@ -57,10 +101,6 @@ namespace VoteByLeapMotionProject
         public override void OnConnect(Controller controller)
         {
             SafeWriteLine("Connected\n");
-            controller.EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
-            controller.EnableGesture(Gesture.GestureType.TYPE_KEY_TAP);
-            controller.EnableGesture(Gesture.GestureType.TYPE_SCREEN_TAP);
-            controller.EnableGesture(Gesture.GestureType.TYPE_SWIPE);
         }
 
         public override void OnDisconnect(Controller controller)
@@ -79,13 +119,14 @@ namespace VoteByLeapMotionProject
         /// <param name="controller"></param>
         public override void OnFrame(Controller controller)
         {
+            Election election = elections[0];
             Frame frame = controller.Frame();
             int nombreDeMains = frame.Hands.Count;
             if(choixEnCours==null){
-                if (election.getListeChoix().ContainsKey(nombreDeMains))
+                if (election.choix.ContainsKey(nombreDeMains))
                 {
-                    choixEnCours = election.getListeChoix()[nombreDeMains];
-                    SafeWriteLine("Vous allez voter " + choixEnCours.getNom() +" , laissez vos mains en position pendant "+DELAIS+" secondes pour confirmer!");
+                    choixEnCours = election.choix[nombreDeMains];
+                    SafeWriteLine("Vous allez voter " + choixEnCours.nom +" , laissez vos mains en position pendant "+DELAIS+" secondes pour confirmer!");
                 }
                 else
                 {
@@ -108,13 +149,13 @@ namespace VoteByLeapMotionProject
                 }
             }
             else {
-                if (nombreDeMains == choixEnCours.getNombreDeMainPourChoix() && compteur < DELAIS)
+                if (nombreDeMains == choixEnCours.id && compteur < DELAIS)
                 {
                     SafeWriteLine(DELAIS - compteur + "...");
                     Console.SetCursorPosition(0, Console.CursorTop - 1);
                     compteur++;
                 }
-                else if (nombreDeMains != choixEnCours.getNombreDeMainPourChoix())
+                else if (nombreDeMains != choixEnCours.id)
                 {
                     SafeWriteLine("Vous avez changé la position de vo(s)tre main(s), Votre vote n'est pas comptabilisé, vous pouvez recommencer.\n");
                     choixEnCours = null;
@@ -132,7 +173,7 @@ namespace VoteByLeapMotionProject
                     }
                     SafeWriteLine(prenom);
                     SafeWriteLine("Votre vote a bien été pris en compte, merci d'avoir voté!");
-                    election.getListeVote().Add(new Vote(prenom, choixEnCours));
+                    election.votes.Add(new Vote(prenom, choixEnCours));
                     envoiInformation(generateJSon(election));
                     choixEnCours = null;
                     compteur = 0;
@@ -149,9 +190,9 @@ namespace VoteByLeapMotionProject
         private void afficheInfo(Election election)
         {
             SafeWriteLine("En attente de positionnement des mains.");
-            foreach (KeyValuePair<int, Choix> entreeDictionnaire in election.getListeChoix())
+            foreach (KeyValuePair<int, Choix> entreeDictionnaire in election.choix)
             {
-                SafeWriteLine("Pour voter " + entreeDictionnaire.Value.getNom() + ", positionnez " + entreeDictionnaire.Key + " main(s)");
+                SafeWriteLine("Pour voter " + entreeDictionnaire.Value.nom + ", positionnez " + entreeDictionnaire.Key + " main(s)");
             }
             Console.Write("\n");
         }
@@ -165,10 +206,10 @@ namespace VoteByLeapMotionProject
         {
             String json = "";
 
-            for (int i = 0; i < election.getListeVote().Count; i++)
+            for (int i = 0; i < election.votes.Count; i++)
             {
-                Vote vote = election.getListeVote()[i];
-                json += "{'choix':" + vote.getChoixFait().getNombreDeMainPourChoix() + ", 'prenom':'" + vote.getPrenom() + "'}";
+                Vote vote = election.votes[i];
+                json += "{'choix':" + vote.choix.id + ", 'prenom':'" + vote.prenom + "'}";
                 //Pensez à ajouter les virgules en cas d'envoi de plusieurs lignes.
             }
         
@@ -181,9 +222,9 @@ namespace VoteByLeapMotionProject
         /// <returns>Retourne la chaine de caractère au format XML</returns>
         public String generateXML(Election election)
         {
-            String xml = "<Election id:\"" + election.getNom() + "\">";
-            foreach(Vote vote in election.getListeVote()){
-                xml += "<Vote choix:\"" + vote.getChoixFait().getNombreDeMainPourChoix() + "\" prenom:\"" + vote.getPrenom() + "\"/>";
+            String xml = "<Election id:\"" + election.nom + "\">";
+            foreach(Vote vote in election.votes){
+                xml += "<Vote choix:\"" + vote.choix.id + "\" prenom:\"" + vote.prenom + "\"/>";
             }
             xml += "</Election>";
             return xml;
