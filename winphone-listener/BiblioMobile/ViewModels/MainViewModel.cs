@@ -63,13 +63,13 @@ namespace BiblioMobile.ViewModels
                     int id = 0;
                     foreach (ElectionDetails election in elections)
                     {
-                        List<votes> LV1 = new List<votes>();
+                        List<VoteDetails> LV1 = new List<VoteDetails>();
                         int Nb_Oui = 0;
                         int Nb_Non = 0;
                         
                         List<String> ListePrenomNon = new List<string>();
 
-                        foreach (var votes in election.votes)
+                        foreach (var votes in election.VoteDetails)
                         {
                             if (votes.choix == 1)
                             {
@@ -89,7 +89,7 @@ namespace BiblioMobile.ViewModels
 
                             LineOne = election.id,
                             LineTwo = "Votes: Oui = "+ Nb_Oui + " Non = " + Nb_Non,
-                            LineThree = "Total = " + election.votes.Count.ToString() + " votes",
+                            LineThree = "Total = " + election.VoteDetails.Count.ToString() + " votes",
                            // LineFour = "Coucou \n Kikou",
                            // LineFive = "Michel",
                             //LineFour = this.getlisteprenom(ListePrenomOui, Nb_Oui),

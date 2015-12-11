@@ -8,13 +8,6 @@ namespace BiblioMobile.Models
     public class ElectionDetails
     {
         public String id { get; set; }
-        public List<votes> votes { get; set; }
-    }
-
-    public class votes
-    {
-        public int choix { get; set; }
-        public String prenom { get; set; }
-
+        public List<VoteDetails> VoteDetails { get; set; }
     }
 }
