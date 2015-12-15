@@ -7,36 +7,20 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-//app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
-app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-var elections =[];
-var e1 = {
-    'id': 'BDE',
-    'votes': [
-      {
-        'choix': 1,
-        'prenom': 'Adel'
-      },
-      {
-        'choix': 2,
-        'prenom': 'Quentin'
-      },
-      {
-        'choix': 2,
-        'prenom': 'Fadwa'
-      }]
-};
-	  
-elections.push(e1)
+//json
+var fs = require('fs');
+var JsonPath = "./data.json";
+var jsonObj = require(JsonPath);
 
 
 app.get('/api/Votes/Elections', function(req, res) {
 	
 	res.contentType('application/json');
-	res.status(200).json(elections);
+	res.status(200).json(jsonObj);
 });
 
 app.param('id', function (req, res, next, id) {
@@ -46,14 +30,11 @@ app.param('id', function (req, res, next, id) {
 
 app.get('/api/Votes/Elections/:id', function(req, res) {
 	var election = '';
-	console.log("id", req.params.id);
-	for(i in elections){
-		console.log(elections[i]);
-		if(elections[i].id === req.params.id){
-			election = elections[i];
-		}
-	}
-	
+    for(var i in jsonObj) {
+      if(jsonObj[i].id === req.params.id){
+        election = jsonObj[i];
+      }
+    }
 	if(election === ""){
 		res.status(404).send("This election does not exist!");
 	}else{
@@ -65,38 +46,64 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 app.put('/api/Votes/Elections/:id', function(req, res) {
 	console.log(req.params);
     var VerifExistence = false;
-    for(i in elections){
-      if(elections[i].id === req.params.id){
-        VerifExistence = true;
-        elections[i].votes = [];
+    for(var i in jsonObj) {
+        if(jsonObj[i].id === req.params.id){
+          VerifExistence = true;
+          jsonObj[i].votes = [];
+        }
       }
-    }
     if(VerifExistence === true){
-        res.status(200).send(elections);
+        res.status(200).send(jsonObj);
     }
     else{
+      var cpt=0;
+      for(var i in jsonObj){
+          cpt++;
+      }
+      jsonObj[cpt] = {id: req.params.id, votes:[]};
+      /*
       var election = {id: req.params.id, votes:[]};
-      elections.push(election); 
-      res.status(201).send(elections);
+      elections.push(election);
+      */
+      fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
+        if(err) {
+          console.log(err);
+        }
+        else {
+          console.log("JSON saved to " + JsonPath);
+        }
+      });
+      res.status(201).send(jsonObj);
     }
 });
 
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
   var election = '';
-  console.log("id", req.params.id);
-  console.log(req.body);
-  for(i in elections){
-    if(elections[i].id === req.params.id){
-      elections[i].votes.push(req.body);
-      election = elections[i];
-    }
-  }
-  if(election === ""){
-    res.status(404).send("This election does not exist!");
-  }
-  else{
-    res.status(201).json(election);
-  }
+      console.log("id", req.params.id);
+      console.log(req.body);
+      for(var i in jsonObj){
+          if(jsonObj[i].id === req.params.id){
+            var cpt = 0;
+            for(var j in jsonObj[i].votes){
+              cpt++;
+            }
+            jsonObj[i].votes[cpt] = req.body;
+            election = jsonObj[i];
+            fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
+              if(err) {
+                console.log(err);
+              }
+              else {
+                console.log("JSON saved to " + JsonPath);
+              }
+            });
+          }
+      }      
+      if(election === ""){
+          res.status(404).send("This election does not exist!");
+      }else{
+          res.status(201).json(election);
+      }
 });
 
 app.delete('*',function(req,res){
