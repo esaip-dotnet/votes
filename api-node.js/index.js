@@ -8,111 +8,128 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(bodyParser.json());
 
-//json
+//Json file and utilities
 var fs = require('fs');
 var JsonPath = "./data.json";
 var jsonObj = require(JsonPath);
 
 
+
+//Show all elections
 app.get('/api/Votes/Elections', function(req, res) {
-	
 	res.contentType('application/json');
 	res.status(200).json(jsonObj);
 });
 
+
+//
 app.param('id', function (req, res, next, id) {
-	console.log('Id called in the URL.');
+    console.log('Id called in the URL.');
 	next();
 });
 
+
+//
 app.get('/api/Votes/Elections/:id', function(req, res) {
-	var election = '';
+    var election = '';
     for(var i in jsonObj) {
-      if(jsonObj[i].id === req.params.id){
-        election = jsonObj[i];
-      }
+        if(jsonObj[i].id === req.params.id){
+            election = jsonObj[i];
+        }
     }
 	if(election === ""){
-		res.status(404).send("This election does not exist!");
-	}else{
-		res.contentType('application/json');
+        res.status(404).send("This election does not exist!");
+	}
+    else{
+        res.contentType('application/json');
 		res.status(200).json(election);
 	}
 });
 
+
+//
 app.put('/api/Votes/Elections/:id', function(req, res) {
-	console.log(req.params);
-    var VerifExistence = false;
+    var CheckExistence = false;
     for(var i in jsonObj) {
         if(jsonObj[i].id === req.params.id){
-          VerifExistence = true;
-          jsonObj[i].votes = [];
+            CheckExistence = true;
+            jsonObj[i].votes = [];
         }
-      }
-    if(VerifExistence === true){
+    }
+    if(CheckExistence === true){
         res.status(200).send(jsonObj);
     }
     else{
-      var cpt=0;
-      for(var i in jsonObj){
-          cpt++;
-      }
-      jsonObj[cpt] = {id: req.params.id, votes:[]};
-      /*
-      var election = {id: req.params.id, votes:[]};
-      elections.push(election);
-      */
-      fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
-        if(err) {
-          console.log(err);
+        var cptSize=0;
+        for(var i in jsonObj){
+            cptSize++;
         }
-        else {
-          console.log("JSON saved to " + JsonPath);
-        }
-      });
-      res.status(201).send(jsonObj);
+        jsonObj[cptSize] = {id: req.params.id, votes:[]};
+        fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
+            if(err) {
+                console.log(err);
+            }
+            else {
+                console.log("JSON saved to " + JsonPath);
+            }
+        });
+        res.status(201).send(jsonObj);
     }
 });
 
+//
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
-  var election = '';
-      console.log("id", req.params.id);
-      console.log(req.body);
-      for(var i in jsonObj){
-          if(jsonObj[i].id === req.params.id){
-            var cpt = 0;
-            for(var j in jsonObj[i].votes){
-              cpt++;
-            }
-            jsonObj[i].votes[cpt] = req.body;
-            election = jsonObj[i];
-            fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
-              if(err) {
-                console.log(err);
-              }
-              else {
-                console.log("JSON saved to " + JsonPath);
-              }
-            });
-          }
-      }      
-      if(election === ""){
-          res.status(404).send("This election does not exist!");
-      }else{
-          res.status(201).json(election);
-      }
+    try{
+        var requestType = req.get('Content-Type');
+        if(requestType == 'application/json'){
+            var election = '';
+            for(var i in jsonObj){
+                if(jsonObj[i].id === req.params.id){
+                    var cptSize = 0;
+                    for(var j in jsonObj[i].votes){
+                        cptSize++;
+                    }
+                    jsonObj[i].votes[cptSize] = req.body;
+                    election = jsonObj[i];
+                    fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
+                        if(err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("JSON saved to " + JsonPath);
+                        }
+                    });
+                }
+            }      
+            if(election === ""){
+                res.status(404).send("This election does not exist!");
+            }else{
+                res.status(201).json(election);
+            }    
+        }
+        else{
+            res.status(406).send("Header type not acceptable");
+        }
+    }
+    catch(err){
+        res.status(409).send("Conflict");        
+    }
+    
 });
 
+//Redirection for delete method (error 405)
 app.delete('*',function(req,res){
-  res.status(405).send('Method not allowed!');
+    res.status(405).send('Method not allowed!');
 });
 
+//Redirection for wrong URL (error 404)
 app.all('*', function(req, res){
-   res.status(400).send('This URL does not exist!');
+    res.status(400).send('This URL does not exist!');
 });
 
+//Listen on port the 5004 port
 app.listen(port);
 console.log("App listening on port " + port);
