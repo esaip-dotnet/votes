@@ -5,6 +5,7 @@ Kinect for Windows
 ## What is this?
 
 This repository contains samples submitted by the Kinect for our Vote project in Esaip.
+The Goal of this Kinect project is to vote "Yes" or "No" with just one hand. After the vote, the result is directly send at the winphone listener.
 
 ## Architecture
 

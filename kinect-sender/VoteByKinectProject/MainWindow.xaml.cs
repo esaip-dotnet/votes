@@ -30,6 +30,7 @@ namespace VoteByKinectProject
         private List<String> listeVotant = new List<string>();
         private Timer timer = new Timer(1000);
         private int countDown;
+
         //private DetecteurLettres MoteurDetection = new DetecteurLettres();
         //private char DerniereLettre;
         public MainWindow()
@@ -132,6 +133,8 @@ namespace VoteByKinectProject
             double Y = 240.0 - 240.0 * input.Y;
             return new Point(X, Y);
         }
+
+        //Choice of position for the kinect visualisation 
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen)
         {
             Point PosMainGauche = TransformCameraPoint(joints[JointType.HandLeft].Position);
@@ -144,10 +147,10 @@ namespace VoteByKinectProject
             {
                 Votant.Text = listeVotant[0];
 
-                //Si main gauche levée
+                //If left hand lift  
                 if (PosMainGauche.Y < PosCentreEpaule.Y && PosMainDroite.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("Main gauche");
+                    //Console.WriteLine("left hand");
                     choix = "Gauche";
                     if (timer.Enabled == false) {
                         timer.Enabled = true;
@@ -155,10 +158,10 @@ namespace VoteByKinectProject
                     }
                     
                 }
-                //Si main droit levée
+                //If right hand lift
                 else if (PosMainDroite.Y < PosCentreEpaule.Y && PosMainGauche.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("Main gauche");
+                    //Console.WriteLine("right hand");
                     choix = "Droite";
                     if (timer.Enabled == false)
                     {
@@ -173,7 +176,7 @@ namespace VoteByKinectProject
 
                 if (hasVoted)
                 {
-                    //Écriture du Json
+                    //JSON writting
                     String dataJson = "{";
                     if (choix == "Droite")
                     {
@@ -221,7 +224,7 @@ namespace VoteByKinectProject
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            //Handler appelé toutes les secondes.
+            //Handler called every seconds
             --countDown;
             if (countDown == 0)
             {
