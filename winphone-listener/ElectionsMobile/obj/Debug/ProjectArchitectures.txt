@@ -1,0 +1,1 @@
+C:\Users\Baptiste\Documents\Projet ASP.net\votes\winphone-listener\ElectionsMobile\ElectionsMobile.csproj;neutral
