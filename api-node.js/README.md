@@ -4,20 +4,30 @@ votes on given elections. A Windows Phone mobile application retrieves the numbe
 provided to send votes, both using natural interfaces. The first one uses a Kinect peripheral, and the second one a Leap Motion.
 
 ## Architecture
-The application allows for four services for the API implementation:
-
-- **api-core.net** : version written in Core .NET (1.0.0-beta4);
-- **api-python** : version written in Python (Flask framework);
-- **api-java** : version written in Java 8 (Spark framework);
-- **api-node.js** : version written in Node.JS with Express.
+This API 
 
 ## Use
-Easiest way to run the application is to use the docker-compose.yml file that is provided :
+Authentification
 
-    git clone https://github.com/esaip-dotnet/votes.git
-    cd votes
-    docker-compose build
-    docker-compose up
+Premièrement il faut gérer l'identification avant que l'API puisse recevoir/transmettre de quelconques données.
 
-Then run the Kinect or Leap application and follow the voting instruction. Once votes are recorded, use the mobile application
-to retrieve the results for the election.
+## Authentification
+
+L'authentification utilise un système oauth2 de google. Dans un premier temps vous aurait besoin de gérer votre API dev google et de renseigner les informations manquantes dans le code.
+Pour toutes difficultés dans cette partie voir : 
+    https://developers.google.com/identity/protocols/OAuth2
+    https://github.com/jaredhanson/passport-google-oauth/
+    
+Avant que l'authentification puisse marcher, il faut régler le soucis lier à l'envoie via la kinnect et la leap motion. Sans cette amélioration ajoutée, l'authentification ne peut marcher.
+
+
+## Redirection
+
+L'API sous node permet de récupérer les informations envoyées par la Leap et la Kinnect et d'offrir un accès à la donnée à l'application sous windows phone.
+
+Via des requêtes post et put de données sous json, les élections et votes sont enregistrées dans un fichier data.json.
+
+Les informations enregistrées dans le data.json sont alors renvoyées dans une URL get.
+
+L'API gère de manière minimale la concurrence (via un booléen). Il n'authorise pas une requête post ou put de se faire au même moment.
+Les gestions d'exception et de traitement http sont également gérés.

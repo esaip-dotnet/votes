@@ -87,13 +87,8 @@ function ensureAuthenticated(req, res, next) {
 
 //Show all elections, saved on the Json file
 app.get('/api/Votes/Elections', function(req, res) {
-    if (req.isAuthenticated()){
-        res.contentType('application/json');
-        res.status(200).json(jsonObj);
-    }
-    else{
-        res.status(401).send("Unauthorized");
-    }
+    res.contentType('application/json');
+    res.status(200).json(jsonObj);
 });
 
 //Define id as param for all routes.
@@ -103,23 +98,18 @@ app.param('id', function (req, res, next, id) {
 
 //Show all vote on @param:id election.
 app.get('/api/Votes/Elections/:id', function(req, res) {
-    if (req.isAuthenticated()){
-        var election = '';
-        for(var i in jsonObj) {
-            if(jsonObj[i].id === req.params.id){
-                election = jsonObj[i];
-            }
-        }
-        if(election === ""){
-            res.status(404).send("This election does not exist!");
-        }
-        else{
-            res.contentType('application/json');
-            res.status(200).json(election);
+    var election = '';
+    for(var i in jsonObj) {
+        if(jsonObj[i].id === req.params.id){
+            election = jsonObj[i];
         }
     }
+    if(election === ""){
+        res.status(404).send("This election does not exist!");
+    }
     else{
-        res.status(401).send("Unauthorized");
+        res.contentType('application/json');
+        res.status(200).json(election);
     }
 });
 
