@@ -16,7 +16,7 @@ var fs = require('fs');
 var JsonPath = "./data.json";
 var jsonObj = require(JsonPath);
 
-
+var OperationLock = false;
 
 //Show all elections
 app.get('/api/Votes/Elections', function(req, res) {
@@ -27,10 +27,8 @@ app.get('/api/Votes/Elections', function(req, res) {
 
 //
 app.param('id', function (req, res, next, id) {
-    console.log('Id called in the URL.');
 	next();
 });
-
 
 //
 app.get('/api/Votes/Elections/:id', function(req, res) {
@@ -40,49 +38,57 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
             election = jsonObj[i];
         }
     }
-	if(election === ""){
+    if(election === ""){
         res.status(404).send("This election does not exist!");
-	}
+    }
     else{
         res.contentType('application/json');
-		res.status(200).json(election);
-	}
+        res.status(200).json(election);
+    }
 });
 
 
 //
 app.put('/api/Votes/Elections/:id', function(req, res) {
-    var CheckExistence = false;
-    for(var i in jsonObj) {
-        if(jsonObj[i].id === req.params.id){
-            CheckExistence = true;
-            jsonObj[i].votes = [];
+    if(OperationLock == false){
+        OperationLock = true;
+        var CheckExistence = false;
+        for(var i in jsonObj) {
+            if(jsonObj[i].id === req.params.id){
+                CheckExistence = true;
+                jsonObj[i].votes = [];
+            }
         }
-    }
-    if(CheckExistence === true){
-        res.status(200).send(jsonObj);
+        if(CheckExistence === true){
+            res.status(200).send(jsonObj);
+        }
+        else{
+            var cptSize=0;
+            for(var i in jsonObj){
+                cptSize++;
+            }
+            jsonObj[cptSize] = {id: req.params.id, votes:[]};
+            fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("JSON saved to " + JsonPath);
+                }
+            });
+            res.status(201).send(jsonObj);
+        }
+        OperationLock = false;
     }
     else{
-        var cptSize=0;
-        for(var i in jsonObj){
-            cptSize++;
-        }
-        jsonObj[cptSize] = {id: req.params.id, votes:[]};
-        fs.writeFile(JsonPath, JSON.stringify(jsonObj), function(err) {
-            if(err) {
-                console.log(err);
-            }
-            else {
-                console.log("JSON saved to " + JsonPath);
-            }
-        });
-        res.status(201).send(jsonObj);
+        res.status(409).send("Conflict");
     }
 });
 
 //
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
-    try{
+    if(OperationLock == false){
+        OperationLock = true;
         var requestType = req.get('Content-Type');
         if(requestType == 'application/json'){
             var election = '';
@@ -113,8 +119,9 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
         else{
             res.status(406).send("Header type not acceptable");
         }
+        OperationLock = false;
     }
-    catch(err){
+    else{
         res.status(409).send("Conflict");        
     }
     
@@ -130,6 +137,6 @@ app.all('*', function(req, res){
     res.status(400).send('This URL does not exist!');
 });
 
-//Listen on port the 5004 port
+//Listening on port 5004
 app.listen(port);
 console.log("App listening on port " + port);
