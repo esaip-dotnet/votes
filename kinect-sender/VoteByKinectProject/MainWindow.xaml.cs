@@ -1,4 +1,12 @@
-﻿using System.Diagnostics;
+﻿/**
+ * @Authors : Esaip's students
+ * @Date 20/12/2015 (DD/MM/YY)
+ * @Brief : Kinect application vote
+ * Left hand = No
+ * Right hand = Yes
+ * @Version 1.0
+ **/
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;

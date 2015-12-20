@@ -38,3 +38,17 @@ C:\Users\Quentin\Documents\GitVotes\Dossier_final\votes\kinect-sender\VoteByKine
 C:\Users\Quentin\Documents\GitVotes\Dossier_final\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.g.resources
 C:\Users\Quentin\Documents\GitVotes\Dossier_final\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.Properties.Resources.resources
 C:\Users\Quentin\Documents\GitVotes\Dossier_final\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.csproj.GenerateResource.Cache
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\bin\Debug\VoteByKinectProject.exe.config
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.exe
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.pdb
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\bin\Debug\VoteByKinectProject.exe
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\bin\Debug\VoteByKinectProject.pdb
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\bin\Debug\Microsoft.Kinect.xml
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.csprojResolveAssemblyReference.cache
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\MainWindow.baml
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\MainWindow.g.cs
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\App.g.cs
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject_MarkupCompile.cache
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.g.resources
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.Properties.Resources.resources
+C:\Users\Thanh-Tuan\Desktop\votes\kinect-sender\VoteByKinectProject\obj\Debug\VoteByKinectProject.csproj.GenerateResource.Cache
