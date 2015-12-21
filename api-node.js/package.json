@@ -1,13 +1,19 @@
 {
-  "name"         : "System for vote API",
-  "version"      : "0.2",
+  "name"         : "vote-in-node",
+  "version"      : "0.2.0",
   "description"  : "An API to exchange data about elections between vote system and users",
   "main"         : "index.js",
-  "author"       : "alexkuva",
+  "author"       : "Alexandre Bergere",
+  "contributors": [
+    {
+      "name": "Yohann Pichois",
+      "email": "ngutowski@esaip.org"
+    }
+  ],
   "license"      : "MIT",
   "repository"   : {
     "type" : "git",
-    "url" : "https://github.com/ezria/votes.git"
+    "url" : "git@github.com:ezria/votes.git"
   },
   "dependencies" : {
     "express"         : "~4.7.2",
@@ -20,3 +26,7 @@
     "passport-google-oauth": ">= 0.0.0"
   }
 }
+
+
+
+
