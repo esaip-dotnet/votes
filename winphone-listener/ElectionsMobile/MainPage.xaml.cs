@@ -14,19 +14,17 @@ namespace ElectionsMobile
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        // Constructeur
+        // Constructor
         public MainPage()
         {
             InitializeComponent();
 
-            // Affecter l'exemple de données au contexte de données du contrôle LongListSelector
+            // Assign the sample data to the control data context LongListSelector
             DataContext = App.ViewModel;
 
-            // Exemple de code pour la localisation d'ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
-        // Charger les données pour les éléments ViewModel
+        // Load data for the ViewModel elements
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (!App.ViewModel.IsDataLoaded)
@@ -35,17 +33,17 @@ namespace ElectionsMobile
             }
         }
 
-        // Gérer la sélection modifiée sur LongListSelector
+        // Manage the modified selection on LongListSelector
         private void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Si l'élément sélectionné a la valeur Null (pas de sélection), ne rien faire
+            // If the selected item is null (no selection), do nothing
             if (MainLongListSelector.SelectedItem == null)
                 return;
 
-            // Naviguer vers la nouvelle page
+            // Navigate to the new page
             NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + (MainLongListSelector.SelectedItem as ItemViewModel).ID, UriKind.Relative));
 
-            // Réinitialiser l'élément sélectionné sur Null (pas de sélection)
+            // Reset the selected element to Null (no selection)
             MainLongListSelector.SelectedItem = null;
         }
 
@@ -54,21 +52,5 @@ namespace ElectionsMobile
             App.ViewModel.IsDataLoaded = false;
             App.ViewModel.LoadData();
         }
-
-        // Exemple de code pour la conception d'une ApplicationBar localisée
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Définit l'ApplicationBar de la page sur une nouvelle instance d'ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Crée un bouton et définit la valeur du texte sur la chaîne localisée issue d'AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Crée un nouvel élément de menu avec la chaîne localisée d'AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

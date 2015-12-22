@@ -11,7 +11,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    SupportedOrientations="Portrait"  Orientation="Landscape"
     shell:SystemTray.IsVisible="True">
 
     <!--L'exemple de données ci-dessus et le premier élément de l'exemple de collecte de données ci-dessous sont affectés au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
@@ -32,14 +32,9 @@
             <TextBlock Text="{Binding LineFour}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
             <TextBlock Text="{Binding LineFive}" TextWrapping="Wrap" Margin="12,12,12,12" Style="{StaticResource PhoneTextSubtleStyle}"/>
         </Grid>
+        <TextBox HorizontalAlignment="Left" Height="517" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456" Margin="-9,35,0,-233" Grid.Row="1" TextChanged="TextBox_TextChanged"/>
 
-        <!--Supprimez les commentaires pour voir une grille d'alignement qui vous aidera à vous assurer que vos contrôles sont
-            alignés sur les limites communes.  L'image a une marge supérieure de -32px pour
-            tenir compte de la barre d'état système. Attribuez-lui la valeur 0 (ou supprimez la marge)
-            si la barre d'état système est masquée.
-
-            Avant l'envoi, supprimez ce XAML et l'image proprement dite.-->
-        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+        
     </Grid>
 
 </phone:PhoneApplicationPage>

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{BDB291E8-80C1-49FC-AE2F-85C15F041662}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionsMobile", "ElectionsMobile\ElectionsMobile.csproj", "{3733BA10-3879-4140-8255-BBF308DCCF3D}"
 EndProject
 Global
@@ -17,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Release|ARM.ActiveCfg = Release|Any CPU
-		{BDB291E8-80C1-49FC-AE2F-85C15F041662}.Release|x86.ActiveCfg = Release|Any CPU
 		{3733BA10-3879-4140-8255-BBF308DCCF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3733BA10-3879-4140-8255-BBF308DCCF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3733BA10-3879-4140-8255-BBF308DCCF3D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

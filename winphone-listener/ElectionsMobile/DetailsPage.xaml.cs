@@ -13,16 +13,13 @@ namespace ElectionsMobile
 {
     public partial class DetailsPage : PhoneApplicationPage
     {
-        // Constructeur
+        // Constructor
         public DetailsPage()
         {
             InitializeComponent();
-
-            // Exemple de code pour la localisation d'ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
-        // Lors de l'accès à la page, affectez l'élément sélectionné dans la liste au contexte de données
+        //When accessing the page, assign the selected item in the list to the context data
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (DataContext == null)
@@ -36,20 +33,10 @@ namespace ElectionsMobile
             }
         }
 
-        // Exemple de code pour la conception d'une ApplicationBar localisée
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Définit l'ApplicationBar de la page sur une nouvelle instance d'ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Crée un bouton et définit la valeur du texte sur la chaîne localisée issue d'AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Crée un nouvel élément de menu avec la chaîne localisée d'AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string List = "";
+            //App.ViewModel.getlisteprenom;
+        }
     }
 }

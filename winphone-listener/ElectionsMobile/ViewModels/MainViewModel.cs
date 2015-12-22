@@ -14,10 +14,12 @@ using Newtonsoft.Json;
 namespace ElectionsMobile.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
-    {   //Add of the List ListePrenomOui witch take all the name where the vote is yes
+    {   //Add of the List ListePrenomOui/Non witch take all the name where the vote is yes/no
         private List<String> ListePrenomOui = new List<string>();
+        private List<String> ListePrenomNon = new List<string>();
         //It is here that we declare the URL to get all Elections with vote and prenom
         const string apiUrl = @"http://coreosjpg.cloudapp.net/api/Votes/Elections";
+        //constructor
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
@@ -47,7 +49,7 @@ namespace ElectionsMobile.ViewModels
             }
         }
         //It's the fonction to put firstname (yes or no) in a list.
-        private string getlisteprenom(List<string> listeprenom, int nb)
+        public string getlisteprenom(List<string> listeprenom, int nb)
         {
             for (int i = 0; i < nb; i++)
             {
@@ -66,22 +68,25 @@ namespace ElectionsMobile.ViewModels
 
 
                     var elections = JsonConvert.DeserializeObject<ElectionDetails[]>(e.Result);
-                    int id = 0;
+                    
+                    //here we will do the treatment for each elections
                     foreach (ElectionDetails election in elections)
                     {
+                        //We create a new VoteDetails's list
                         List<VoteDetails> LV1 = new List<VoteDetails>();
+                        //initialisation of some variables
                         int Nb_Oui = 0;
                         int Nb_Non = 0;
-
-                        List<String> ListePrenomNon = new List<string>();
-
+                        //treatment for each vote
                         foreach (var votes in election.VoteDetails)
                         {
+                            //if the choice is 1 it's yes
                             if (votes.choix == 1)
                             {
                                 Nb_Oui++;
                                 ListePrenomOui.Add(votes.prenom);
                             }
+                                //else it's no
                             else
                             {
                                 Nb_Non++;
@@ -91,14 +96,10 @@ namespace ElectionsMobile.ViewModels
                         }
                         this.Items.Add(new ItemViewModel()
                         {
-                            ID = (id++).ToString(),
-
-                            LineOne = election.id,
-                            LineTwo = "Votes: Oui = " + Nb_Oui + " Non = " + Nb_Non,
-                            LineThree = "Total = " + election.VoteDetails.Count.ToString() + " votes",
-                            // LineFour = "Coucou \n Kikou",
-                            // LineFive = "Michel",
-                            //LineFour = this.getlisteprenom(ListePrenomOui, Nb_Oui),
+                            LineOne = election.id,//we put the id of the election
+                            LineTwo = "Votes: Oui = " + Nb_Oui + " Non = " + Nb_Non,//we put the number of yes and no
+                            LineThree = "Total = " + election.VoteDetails.Count.ToString() + " votes",//we put the number of person who have vote
+                            
 
                         });
                     } this.IsDataLoaded = true;
@@ -107,7 +108,7 @@ namespace ElectionsMobile.ViewModels
             catch (Exception ex)
             {
                 this.Items.Add(new ItemViewModel()
-                {
+                {//Declaration of sentence we will put on the screen if there is a problem with the application
                     ID = "0",
                     LineOne = "An Error Occurred",
                     LineTwo = String.Format("The following exception occured: {0}", ex.Message),
