@@ -1,3 +1,11 @@
+/**
+ * @Authors : Esaip's students
+ * @Promotion : IR2016
+ * @Tutor : Jean-Philippe Gouigoux
+ * @Date 22/12/2015 (DD/MM/YY)
+ * @Brief : Core API vote application
+ **/
+ 
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;

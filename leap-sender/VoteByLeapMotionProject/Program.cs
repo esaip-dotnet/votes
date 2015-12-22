@@ -4,6 +4,11 @@
 * Use subject to the terms of the Leap Motion SDK Agreement available at       *
 * https://developer.leapmotion.com/sdk_agreement, or another agreement         *
 * between Leap Motion and you, your company or other organization.             *
+* @Authors : Esaip's students                                                  *
+* @Promotion : IR2016                                                          *
+* @Tutor : Jean-Philippe Gouigoux                                              *
+* @Date 22/12/2015 (DD/MM/YY)                                                  *
+* @Brief : Leap Motion vote application                                       *
 \******************************************************************************/
 using System;
 using System.Threading;
@@ -34,7 +39,7 @@ namespace VoteByLeapMotionProject
         private String messageAttente = ".";
 
         /// <summary>
-        /// Permet d'initialiser les éléments de base de l'élection. 
+        /// To initialize the basic elements of the election
         /// </summary>
         public void initSampleListener() {
             string urlToCall = ConfigurationManager.AppSettings["urlServer"];
@@ -114,7 +119,7 @@ namespace VoteByLeapMotionProject
             SafeWriteLine("Exited\n");
         }
         /// <summary>
-        /// Cette fonction est appelée en continue par le controller, une pause de 1 seconde par frame est faite dans cette fonction.
+        /// This function is continuously called by the controller , one pause per frame is made in this function.
         /// </summary>
         /// <param name="controller"></param>
         public override void OnFrame(Controller controller)
@@ -183,9 +188,9 @@ namespace VoteByLeapMotionProject
             System.Threading.Thread.Sleep(1000);
         }
         /// <summary>
-        /// Permet d'afficher les informations pour chaque nouveau vote.
+        /// Displays information for each new vote.
         /// </summary>
-        /// <param name="election">Demande l'objet election afin d'afficher les informations des choix, etc...</param>
+        /// <param name="election">Request the election object to display information choices , etc ...</param>
 
         private void afficheInfo(Election election)
         {
@@ -198,10 +203,10 @@ namespace VoteByLeapMotionProject
         }
         
         /// <summary>
-        /// TODO Fonction permettant la transformation des objets liés à l'élection en chaine de caractère au format JSON.
+        /// TODO function for the transformation of objects related to the election in string in JSON format .
         /// </summary>
-        /// <param name="election"> Objet Election contenant les autres objets Vote et Choix</param>
-        /// <returns>Retourne la chaine de caractère au format JSON</returns>
+        /// <param name="election"> Election object containing other objects and Vote Choice</param>
+        /// <returns>Returns the string in XML format</returns>
         public String generateJSon(Election election)
         {
             String json = "";
@@ -216,10 +221,10 @@ namespace VoteByLeapMotionProject
             return json;
         }
         /// <summary>
-        /// Fonction permettant la transformation des objets liés à l'élection en chaine de caractère au format XML.
+        /// Function for the transformation of objects related to the election in string in XML format.
         /// </summary>
-        /// <param name="election"> Objet Election contenant les autres objets Vote et Choix</param>
-        /// <returns>Retourne la chaine de caractère au format XML</returns>
+        /// <param name="election"> Election object containing other objects and Vote Choice</param>
+        /// <returns>Returns the string in XML format</returns>
         public String generateXML(Election election)
         {
             String xml = "<Election id:\"" + election.nom + "\">";
@@ -232,10 +237,10 @@ namespace VoteByLeapMotionProject
 
 
         /// <summary>
-        /// Fonction permettant d'envoyer les informations vers le serveur
+        /// A function to send the information to the server.
         /// TODO
         /// </summary>
-        /// <param name="fichier">demande les données à envoyer (Format JSON ou XML, à appeler avec les fonctions generateXML et generateJSon</param>
+        /// <param name="fichier">requests the data to send ( JSON or XML format , to call with generateXML generateJSon and functions</param>
         public void envoiInformation(String fichier)
         {
             

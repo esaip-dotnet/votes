@@ -1,3 +1,10 @@
+""" 
+ * @Authors : Esaip's students
+ * @Promotion : IR2016
+ * @Tutor : Jean-Philippe Gouigoux
+ * @Date 22/12/2015 (DD/MM/YY)
+ * @Brief : Python API vote application
+"""
 from flask import Flask,jsonify
 from flask import make_response
 from flask import Response

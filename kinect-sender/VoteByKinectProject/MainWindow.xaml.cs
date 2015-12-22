@@ -1,10 +1,11 @@
 ﻿/**
  * @Authors : Esaip's students
+ * @Promotion : IR2016
+ * @Tutor : Jean-Philippe Gouigoux
  * @Date 20/12/2015 (DD/MM/YY)
- * @Brief : Kinect application vote
+ * @Brief : Kinect vote application 
  * Left hand = No
  * Right hand = Yes
- * @Version 1.0
  **/
 using System.Diagnostics;
 using System.IO;
@@ -39,11 +40,8 @@ namespace VoteByKinectProject
         private Timer timer = new Timer(1000);
         private int countDown;
 
-        //private DetecteurLettres MoteurDetection = new DetecteurLettres();
-        //private char DerniereLettre;
         public MainWindow()
-        {
-            this.kinectSensor = KinectSensor.GetDefault();
+        {        this.kinectSensor = KinectSensor.GetDefault();
             this.coordinateMapper = this.kinectSensor.CoordinateMapper;
             FrameDescription frameDescription = this.kinectSensor.DepthFrameSource.FrameDescription;
             this.displayWidth = frameDescription.Width;
@@ -142,7 +140,7 @@ namespace VoteByKinectProject
             return new Point(X, Y);
         }
 
-        //Choice of position for the kinect visualisation 
+        //Detected person loop 
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen)
         {
             Point PosMainGauche = TransformCameraPoint(joints[JointType.HandLeft].Position);
@@ -155,10 +153,9 @@ namespace VoteByKinectProject
             {
                 Votant.Text = listeVotant[0];
 
-                //If left hand lift  
+                //If left hand raised  
                 if (PosMainGauche.Y < PosCentreEpaule.Y && PosMainDroite.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("left hand");
                     choix = "Gauche";
                     if (timer.Enabled == false) {
                         timer.Enabled = true;
@@ -166,10 +163,9 @@ namespace VoteByKinectProject
                     }
                     
                 }
-                //If right hand lift
+                //If right hand raised
                 else if (PosMainDroite.Y < PosCentreEpaule.Y && PosMainGauche.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("right hand");
                     choix = "Droite";
                     if (timer.Enabled == false)
                     {
