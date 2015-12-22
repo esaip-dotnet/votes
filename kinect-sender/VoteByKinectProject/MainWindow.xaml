@@ -25,7 +25,7 @@
         <TextBox HorizontalAlignment="Left" Name ="Votant" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.651,6.289" Margin="20,145,0,0" FontWeight="Bold" SelectionOpacity="0.6" SelectionBrush="#FFFF3C33"/>
         <Label Content="Nom du votant :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,120,0,0" FontWeight="Bold" Height="42" Width="102"/>
         <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="34" Margin="244,26,0,0" VerticalAlignment="Top" Width="248" Grid.ColumnSpan="2"/>
-        <Image Margin="168,23,42,407" Source="Image1.png" Stretch="Fill" Grid.Column="1"/>
+        <Image Margin="520,10,10,420" Source="Image1.png" Stretch="Fill"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="127" Margin="10,60,0,0" VerticalAlignment="Top" Width="181"/>
     </Grid>
 </Window>
