@@ -35,13 +35,14 @@ namespace VoteByKinectProject
         private int displayHeight;
         private Pen bodyColor;
         private Boolean hasVoted = false;
-        private String choix = "";
-        private List<String> listeVotant = new List<string>();
+        private String choice = "";
         private Timer timer = new Timer(1000);
         private int countDown;
-
+        private String url = VoteByKinectProject.Properties.Settings.Default.url.ToString();
+        
         public MainWindow()
-        {        this.kinectSensor = KinectSensor.GetDefault();
+        {
+            this.kinectSensor = KinectSensor.GetDefault();
             this.coordinateMapper = this.kinectSensor.CoordinateMapper;
             FrameDescription frameDescription = this.kinectSensor.DepthFrameSource.FrameDescription;
             this.displayWidth = frameDescription.Width;
@@ -61,20 +62,9 @@ namespace VoteByKinectProject
             this.imageSource = new DrawingImage(this.drawingGroup);
             this.DataContext = this;
             this.InitializeComponent();
-            this.listeVotant.Add("Baptiste");
-            this.listeVotant.Add("Guénaël");
-            this.listeVotant.Add("Aymeric");
-            this.listeVotant.Add("Thanh Tuan");
-            this.listeVotant.Add("Yohann");
-            this.listeVotant.Add("Corentin");
-            this.listeVotant.Add("Gilles");
-            this.listeVotant.Add("Fadwa");
-            this.listeVotant.Add("Adel");
-            this.listeVotant.Add("Quentin");
-            this.listeVotant.Add("Antoine");
-            this.listeVotant.Add("Alexandre");
             timer.Elapsed += OnTimedEvent;
         }
+
         public ImageSource ImageSource
         {
             get
@@ -82,11 +72,13 @@ namespace VoteByKinectProject
                 return this.imageSource;
             }
         }
+
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             if (this.bodyFrameReader != null)
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
         }
+
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             if (this.bodyFrameReader != null)
@@ -94,6 +86,7 @@ namespace VoteByKinectProject
             if (this.kinectSensor != null)
                 this.kinectSensor.Close();
         }
+
         private void Reader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
             bool dataReceived = false;
@@ -106,6 +99,11 @@ namespace VoteByKinectProject
                     bodyFrame.GetAndRefreshBodyData(this.bodies);
                     dataReceived = true;
                 }
+                else
+                {
+                    Votant.IsEnabled = true;
+                }
+                
             }
             if (dataReceived)
             {
@@ -133,6 +131,7 @@ namespace VoteByKinectProject
                 }
             }
         }
+
         private Point TransformCameraPoint(CameraSpacePoint input)
         {
             double X = 320.0 + 320.0 * input.X;
@@ -140,78 +139,25 @@ namespace VoteByKinectProject
             return new Point(X, Y);
         }
 
-        //Detected person loop 
+        //When skeleton detected
         private void DrawBody(IReadOnlyDictionary<JointType, Joint> joints, IDictionary<JointType, Point> jointPoints, DrawingContext drawingContext, Pen drawingPen)
         {
-            Point PosMainGauche = TransformCameraPoint(joints[JointType.HandLeft].Position);
-            Point PosMainDroite = TransformCameraPoint(joints[JointType.HandRight].Position);
-            Point PosCentreEpaule = TransformCameraPoint(joints[JointType.SpineShoulder].Position);
-            Point PosCoudeGauche = TransformCameraPoint(joints[JointType.ElbowLeft].Position);
-            Point PosCoudeDroit = TransformCameraPoint(joints[JointType.ElbowRight].Position);
 
-            if (listeVotant.Count != 0)
+            if (Votant.Text != "")
             {
-                Votant.Text = listeVotant[0];
-
-                //If left hand raised  
-                if (PosMainGauche.Y < PosCentreEpaule.Y && PosMainDroite.Y > PosCentreEpaule.Y)
-                {
-                    choix = "Gauche";
-                    if (timer.Enabled == false) {
-                        timer.Enabled = true;
-                        countDown = 5;
-                    }
-                    
-                }
-                //If right hand raised
-                else if (PosMainDroite.Y < PosCentreEpaule.Y && PosMainGauche.Y > PosCentreEpaule.Y)
-                {
-                    choix = "Droite";
-                    if (timer.Enabled == false)
-                    {
-                        timer.Enabled = true;
-                        countDown = 5;
-                    }
-                }
-                else
-                {
-                    timer.Enabled = false;
-                }
-
+                Votant.IsEnabled = false;
+                checkHandsPosition(joints);
+               
                 if (hasVoted)
                 {
-                    //JSON writting
-                    String dataJson = "{";
-                    if (choix == "Droite")
-                    {
-                        dataJson += "'choix':1,";
-                        dataJson += "'prenom':'";
-                        dataJson += listeVotant[0] + "'";
-                        dataJson += "}";
-                    }
-                    else
-                    {
-                        dataJson += "'choix':2,";
-                        dataJson += "'prenom':'";
-                        dataJson += listeVotant[0] + "'";
-                        dataJson += "}";
+                    String dataJson = parseJson(choice);
+                    sendVote(dataJson);
 
-                    }                    
-
-                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("http://coreosjpg.cloudapp.net/api/votes/Elections/BDE/Votes");
-                    request.ContentType = "application/json";
-                    request.Method = "POST";
-                    StreamWriter streamWriter = new StreamWriter(request.GetRequestStream());
-                    streamWriter.Write(dataJson);
-                    streamWriter.Close();
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    listeVotant.Remove(listeVotant[0]);
-                    hasVoted = false; 
-    
-                }              
-
+                    hasVoted = false;
+                    Votant.Text = "";
+                }
             }
+
             foreach (var bone in this.bones)
                 this.DrawBone(joints, jointPoints, bone.Item1, bone.Item2, drawingContext, drawingPen);
         }
@@ -224,17 +170,76 @@ namespace VoteByKinectProject
             joint1.TrackingState == TrackingState.NotTracked)
                 return;
             drawingContext.DrawLine(drawingPen, jointPoints[jointType0], jointPoints[jointType1]);
+        }         
+
+        private void checkHandsPosition(IReadOnlyDictionary<JointType, Joint> joints)
+        {
+            Point HandLeftPos = TransformCameraPoint(joints[JointType.HandLeft].Position);
+            Point HandRightPos = TransformCameraPoint(joints[JointType.HandRight].Position);
+            Point SpineShoulderPos = TransformCameraPoint(joints[JointType.SpineShoulder].Position);
+            Point ElbowLeftPos = TransformCameraPoint(joints[JointType.ElbowLeft].Position);
+            Point ElbowRightPos = TransformCameraPoint(joints[JointType.ElbowRight].Position);
+
+            //If right hand raised
+            if (HandRightPos.Y < SpineShoulderPos.Y && HandLeftPos.Y > SpineShoulderPos.Y)
+            {
+                          
+                if (timer.Enabled == false)
+                {
+                    timer.Enabled = true;
+                    countDown = 3;
+                    choice = "Oui";    
+                }
+                Vote.Content = "Vous allez voter " + choice + " dans " + countDown;  
+            }
+
+            //If left hand raised  
+            else if (HandLeftPos.Y < SpineShoulderPos.Y && HandRightPos.Y > SpineShoulderPos.Y)
+            {               
+                if (timer.Enabled == false)
+                {
+                    timer.Enabled = true;
+                    countDown = 3;
+                    choice = "Non";
+                }
+                Vote.Content = "Vous allez voter " + choice + " dans " + countDown;  
+
+            }
+            else
+            {
+                timer.Enabled = false;
+                Vote.Content = ""; 
+            }                               
         }
 
+        //Handler for timer called every seconds
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            //Handler called every seconds
+        {          
             --countDown;
+            
             if (countDown == 0)
             {
                 hasVoted = true;
                 timer.Enabled = false;
             }
+        }     
+
+        private String parseJson(String choix)
+        {
+            return "{\"choix\":\"" + choix + "\", \"prenom\":\"" + Votant.Text + "\"})";
+        }
+
+        private void sendVote(String dataJson)
+        {
+            String route = url + "/api/votes/Elections/BDE/Votes";
+            
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(route);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+
+            StreamWriter streamWriter = new StreamWriter(request.GetRequestStream());
+            streamWriter.Write(dataJson);
+            streamWriter.Close();
         }
 
     }
