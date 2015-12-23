@@ -21,15 +21,12 @@ app.get('/api/Votes/Elections', function(req, res) {
 });
 
 app.param('id', function (req, res, next, id) {
-	console.log('Id called in the URL.');
 	next();
 });
 
 app.get('/api/Votes/Elections/:id', function(req, res) {
 	var election = '';
-	console.log("id", req.params.id);
 	for(i in elections){
-		console.log(elections[i]);
 		if(elections[i].id === req.params.id){
 			election = elections[i];
 		}
@@ -46,7 +43,6 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 });
 
 app.put('/api/Votes/Elections/:id', function(req, res) {
-	console.log(req.params);
 	var election = {id: req.params.id, votes:[]};
 	elections.push(election);
 	res.status(200);
@@ -55,10 +51,7 @@ app.put('/api/Votes/Elections/:id', function(req, res) {
 
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 	var election = '';
-	console.log("id", req.params.id);
-	console.log(req.body);
 	for(i in elections){
-		console.log(elections[i]);
 		if(elections[i].id === req.params.id){
 			elections[i].votes.push(req.body);
 			election = elections[i];
