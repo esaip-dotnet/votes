@@ -3,7 +3,7 @@ using System.Text;
 
 namespace VoteByLeapMotionProject
 {
-    class Vote
+    public class Vote
     {
         public string prenom { get; set; }
         public Choix choix { get; set; }

@@ -1,1 +1,11 @@
 C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe.config
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.LeapMotionVoteSystemWindow.resources
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.csproj.GenerateResource.Cache
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.pdb
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\bin\Debug\LeapCSharp.NET4.0.dll
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.Properties.Resources.resources
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.VoteWindow.resources
+C:\Users\corentin\votes\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.csprojResolveAssemblyReference.cache
