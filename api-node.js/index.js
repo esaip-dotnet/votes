@@ -1,3 +1,10 @@
+/**
+ * @Authors : Esaip's students
+ * @Promotion : IR2016
+ * @Tutor : Jean-Philippe Gouigoux
+ * @Date 22/12/2015 (DD/MM/YY)
+ * @Brief : Node API vote application 
+ **/
 var express  = require('express');
 var app = express();
 var port = process.env.PORT || 5004;
