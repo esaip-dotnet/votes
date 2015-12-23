@@ -8,14 +8,15 @@ namespace VotesAPI
 	public class VoteController : Controller
 	{
 		private static Dictionary<string,Election> elections = new Dictionary<string, Election>();
-
+        
+        // Test method to init one Election.
 		[HttpGet("Init")]
 		public string pageInit(){
 			Election election = new Election("BDE", new List<Vote>(new Vote(1, "Corentin")));
 			elections.Add(election.id, election);
 			return "Elections initialized";
 		}
-		
+
 		[HttpGet("Elections")]
 		public string pageElections(){
 			return generateElectionsJson(elections);
@@ -26,20 +27,20 @@ namespace VotesAPI
 		}
 		[HttpPut("Elections/{id}")]
 		public string pageAjoutElection(string id, [FromBody] Election value){
-			if(elections.ContainsKey(id)){ 
+			if(elections.ContainsKey(id)){
 				elections[id] = value;
 			}
 			else{
 				elections.Add(value.id, value);
 			}
-			return "coucou";
+			return elections;
 		}
 		[HttpPost("Election/{id}/Votes")]
 		public string pageAjoutVote(string id,[FromBody] Election value){
 			if (elections.ContainsKey(id)){
                 elections[id].votes.AddRange(value.votes);
             }
-			return "coucou";	
+			return elections[id];
 		}
 
         public string generateForSpecificElectionJson(Dictionary<string, Election> elections, String idElection)
@@ -53,7 +54,7 @@ namespace VotesAPI
 			}
             return json;
         }
-		
+
 		public string generateElectionsJson(Dictionary<string,Election> elections)
         {
 			string json = "[";
@@ -68,7 +69,7 @@ namespace VotesAPI
             json += "]";
             return json;
         }
-		
+
 		public string generateElectionJSon(Election election)
         {
             string json = "{'id':'"+election.id+"','votes':[";
