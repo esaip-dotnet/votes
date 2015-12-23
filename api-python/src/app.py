@@ -2,7 +2,6 @@ from flask import Flask,jsonify
 from flask import make_response
 from flask import Response
 from flask import request
-from reportlab.pdfgen import canvas
 
 import requests, json
 
@@ -22,7 +21,7 @@ elections = [
                 }
             ]
          },
-         {   
+         {
          "id":"BDI",
              "votes":
             [
@@ -34,10 +33,10 @@ elections = [
                     "choix":2,
                     "prenom":"Zara"
                 }
-            ]     
+            ]
 
         }
-      
+
 ]
 
 @app.route('/Elections', methods=['GET'])
@@ -53,7 +52,7 @@ def api_election(electionId):
 
 
 @app.route('/Elections/<electionId>', methods= ['PUT'])
-def create_election():
+def create_election(electionId):
     return Response(json.dumps(), mimetype='application/json')
 
 
