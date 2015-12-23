@@ -1,33 +1,46 @@
-# votes
-This sample application simulates a vote exchange mechanism with several services. The API receives, stores in memory and delivers
-votes on given elections. A Windows Phone mobile application retrieves the number of votes. Two different applications are
-provided to send votes, both using natural interfaces. The first one uses a Kinect peripheral, and the second one a Leap Motion.
+# Votes with the Node.js API
 
 ## Architecture
-This API 
+
+This API is developped with Node.js.
+
 
 ## Use
-Authentification
 
-Premièrement il faut gérer l'identification avant que l'API puisse recevoir/transmettre de quelconques données.
+First of all, the authentication must be done before the API receives or transmits any data.
 
-## Authentification
+The Node API allows the user to get data sent by the Leap and the Kinect, and offers an access to these data with the Windows Phone app.
 
-L'authentification utilise un système oauth2 de google. Dans un premier temps vous aurait besoin de gérer votre API dev google et de renseigner les informations manquantes dans le code.
-Pour toutes difficultés dans cette partie voir : 
+
+## Authentication
+
+//Dans un premier temps vous aurait besoin de gérer votre API dev google et de renseigner les informations manquantes dans le code.
+
+Authentication uses the Google OAuth2 API. Code samples have to be inserted into your app code . More informations here : 
     https://developers.google.com/identity/protocols/OAuth2
     https://github.com/jaredhanson/passport-google-oauth/
-    
-Avant que l'authentification puisse marcher, il faut régler le soucis lier à l'envoie via la kinnect et la leap motion. Sans cette amélioration ajoutée, l'authentification ne peut marcher.
+	
+Before the authentication can work properly, the problem with the data sending by Kinect & Leap Motion has to be fixed. Without this upgrade, the authentication cannot work.
 
 
 ## Redirection
 
-L'API sous node permet de récupérer les informations envoyées par la Leap et la Kinnect et d'offrir un accès à la donnée à l'application sous windows phone.
-
-Via des requêtes post et put de données sous json, les élections et votes sont enregistrées dans un fichier data.json.
+With POST and PUT request formatted with JSON, the elections and the votes are recorded in a data.json file.
 
 Les informations enregistrées dans le data.json sont alors renvoyées dans une URL get.
+Data stored in the data.json file are sent with the GET method to be accessed.
 
-L'API gère de manière minimale la concurrence (via un booléen). Il n'authorise pas une requête post ou put de se faire au même moment.
+The API can manage the competition in a minimalistic way (a simple boolean). The API forbids the access when 2 or more POST and/or PUT resquests are happening in the same time (one will be accepted, the other ones will be discarded).
+
 Les gestions d'exception et de traitement http sont également gérés.
+HTTP treatments and exceptions are also managed by the API.
+
+
+## Contract
+
+The API exposes four operations under the /api/votes base:
+
+- **/Elections (GET)** : returns all elections;
+- **/Elections/{id} (GET)** : returns a given election;
+- **/Elections/{id} (PUT)** : creates an election (idempotent) - election should be created without votes;
+- **/Elections/{id}/Votes (POST)** : sends a vote.
