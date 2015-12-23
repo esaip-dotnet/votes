@@ -33,6 +33,7 @@ var e1 = {
 	  
 elections.push(e1);
 
+//HTTP Get method that allows to see all the elections
 app.get('/api/Votes/Elections', function(req, res) {
 	
 	res.contentType('application/json');
@@ -40,21 +41,25 @@ app.get('/api/Votes/Elections', function(req, res) {
 	res.json(elections);
 });
 
+/*add callback triggers to route parameters where 'id' is the name of the parameter and function(req, res, next, id) is the callback function*/ 
 app.param('id', function (req, res, next, id) {
 	console.log('Id called in the URL.');
 	next();
 });
-
+//HTTP Get method that allows to see all the elections by a specific id
 app.get('/api/Votes/Elections/:id', function(req, res) {
 	var election = '';
 	console.log("id", req.params.id);
-	for(i in elections){
+	for(var i in elections){
 		console.log(elections[i]);
 		if(elections[i].id === req.params.id){
 			election = elections[i];
 		}
 	}
 	
+	//gestion des erreurs selon le contrat:
+	/*404 ---> Not found
+	200 ---> Request Succeed*/
 	if(election === ""){
 		res.status(404);
 		res.send("404, this election does not exist!");
@@ -65,6 +70,7 @@ app.get('/api/Votes/Elections/:id', function(req, res) {
 	}
 });
 
+//Allows to create an elections specified by the invoqued id
 app.put('/api/Votes/Elections/:id', function(req, res) {
 	console.log(req.params);
 	var election = {id: req.params.id, votes:[]};
@@ -73,11 +79,12 @@ app.put('/api/Votes/Elections/:id', function(req, res) {
 	res.send(elections);
 });
 
+//Allows to update a vote
 app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 	var election = '';
 	console.log("id", req.params.id);
 	console.log(req.body);
-	for(i in elections){
+	for(var i in elections){
 		console.log(elections[i]);
 		if(elections[i].id === req.params.id){
 			elections[i].votes.push(req.body);
@@ -85,18 +92,19 @@ app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
 			
 		}
 	}
+	//status
 	if(election === ""){
 		res.status(404);
 		res.send("404, this election does not exist!");
 	}else{
-		res.status(200)
+		res.status(200);
 		res.json(election);
 	}
 });
-
+// Error 400 
 app.all('*', function(req, res){
   res.send('400, this URL does not exist!', 400);
 });
-
+//port to listen to
 app.listen(port);
 console.log("App listening on port " + port);

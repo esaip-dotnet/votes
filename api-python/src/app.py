@@ -39,30 +39,46 @@ elections = [
         }
       
 ]
-
-@app.route('/api/Votes/Elections', methods=['GET'])
+#get method, allows to retrieve all the elections
+@app.route('/api/votes/Elections', methods=['GET'])
 def api_elections():
     return Response(json.dumps(elections),  mimetype='application/json')
 
-@app.route('/api/Votes/Elections/<electionId>', methods=['GET'])
+#get all the elections specified by an invoqued id
+@app.route('/Elections/<electionId>', methods=['GET'])
 def api_election(electionId):
     election = [election for election in elections if election['id']== electionId]
     if len(election) == 0:
-        abort(404)
+        return bad_request
     return Response(json.dumps(election[0]),mimetype='application/json')
 
-
-@app.route('/api/Votes/Elections/<electionId>', methods= ['PUT'])
+#create a new specified election by the id
+@app.route('/Elections/<electionId>', methods= ['PUT'])
 def create_election():
     return Response(json.dumps(), mimetype='application/json')
 
-
-@app.route('/api/Votes/Elections/<electionId>/Votes', methods=['POST'])
-def api_createVote(vote):
+#alloed to vote
+@app.route('/Elections/<electionId>/Votes', methods=['POST'])
+def api_createVote():
     if not request.json or not 'choix' in request.json:
-        abort(400)
-    vote.append(request.json)
+        return bad_request
+    vote = [vote for vote in elections if vote['vote'] == vote]
+    vote.append(request.body)
     return Response(json.dumps(vote), mimetype='application/json'),201
 
+#errors 400 
+@app.errorhandler(400)
+def bad_request(error=None):
+    message = {
+            'status': 400,
+            'message': 'Not Found: ' + request.url,
+    }
+    resp = jsonify(message)
+    resp.status_code = 400
+
+    return resp
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    #it allows the debug of application 
+    app.run(debug = True)
