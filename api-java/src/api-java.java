@@ -11,25 +11,25 @@ import java.net.HttpURLConnection;
 public class votesAPI {
 
 
-    String data = "
+    String data = '
     {
-        'id': 'BDE2',
-        'votes': [
+        "id": "BDE2",
+        "votes": [
         {
-            'choix': 42,
-            'prenom': 'Adel'
+            "choix": 42,
+            "prenom": "Adel"
         },
         {
-            'choix': 43,
-            'prenom': 'Quentin'
+            "choix": 43,
+            "prenom": "Quentin"
         },
         {
-            'choix': 44,
-            'prenom': 'Fadwa'
+            "choix": 44,
+            "prenom": "Fadwa"
         }
         ]
     }
-    ";
+    ';
 
 
     public static void main(String[] args) {
