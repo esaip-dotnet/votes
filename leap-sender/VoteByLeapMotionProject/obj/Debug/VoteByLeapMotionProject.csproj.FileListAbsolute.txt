@@ -1,7 +1,0 @@
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe.config
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.pdb
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\bin\Debug\LeapCSharp.NET4.0.dll
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
-c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.csprojResolveAssemblyReference.cache

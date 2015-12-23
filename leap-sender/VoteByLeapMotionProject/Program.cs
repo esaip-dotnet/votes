@@ -22,7 +22,7 @@ namespace VoteByLeapMotionProject
         private String messageAttente = ".";
 
         /// <summary>
-        /// Permet d'initialiser les éléments de base de l'élection. 
+        /// Create the listener for the basic elements of the election and choices,
         /// </summary>
         public void initSampleListener() {
             election = new Election("Referendum BDE");
@@ -67,9 +67,8 @@ namespace VoteByLeapMotionProject
             SafeWriteLine("Exited\n");
         }
         /// <summary>
-        /// Cette fonction est appelée en continue par le controller, une pause de 1 seconde par frame est faite dans cette fonction.
+        /// This function is continuously called by the controller, there is a 1s pause for each frame.
         /// </summary>
-        /// <param name="controller"></param>
         public override void OnFrame(Controller controller)
         {
             Frame frame = controller.Frame();
@@ -85,7 +84,7 @@ namespace VoteByLeapMotionProject
                     Console.SetCursorPosition(0, Console.CursorTop-1);
                     SafeWriteLine(messageAttente);
                     switch (messageAttente.LastIndexOf(".")){
-                        case 0 : 
+                        case 0 :
                             messageAttente =".. ";
                             break;
                         case 1:
@@ -115,11 +114,11 @@ namespace VoteByLeapMotionProject
                 }
                 else
                 {
-                    SafeWriteLine("Saissisez votre prénom (Commencez par un espace):");
+                    SafeWriteLine("Saisissez votre prénom (Commencez par un espace):");
                     String prenom = "";
                     prenom = Console.ReadLine();
                     while (prenom.Length == 0)
-                    {   
+                    {
                         SafeWriteLine("Aucun nom saisie, merci de resaisir votre prénom");
                         prenom = Console.ReadLine();
                     }
@@ -135,15 +134,13 @@ namespace VoteByLeapMotionProject
             System.Threading.Thread.Sleep(1000);
         }
         /// <summary>
-        /// Permet d'afficher les informations pour chaque nouveau vote.
+        /// Display informations for each new vote.
         /// </summary>
-        /// <param name="election">Demande l'objet election afin d'afficher les informations des choix, etc...</param>
-
         private void afficheInfo(Election election)
         {
-            
-            SafeWriteLine("En attente de positionnement des mains.");
-      
+
+            SafeWriteLine("En attente du positionnement des mains.");
+
             election.getListeChoix().ContainsKey
             foreach (KeyValuePair<int, Choix> entreeDictionnaire in election.getListeChoix())
             {
@@ -151,12 +148,12 @@ namespace VoteByLeapMotionProject
             }
             Console.Write("\n");
         }
-        
+
         /// <summary>
-        /// TODO Fonction permettant la transformation des objets liés à l'élection en chaine de caractère au format JSON.
+        /// Generate the JSON String with the election informations.
         /// </summary>
-        /// <param name="election"> Objet Election contenant les autres objets Vote et Choix</param>
-        /// <returns>Retourne la chaine de caractère au format JSON</returns>
+        /// <param name="election"> Election object containing Votes and Choices</param>
+        /// <returns>JSON String</returns>
         public String generateJSon(Election election)
         {
             String json = "{'id':'"+election.getNom()+"','votes':[";
@@ -165,16 +162,15 @@ namespace VoteByLeapMotionProject
             {
                 Vote vote = election.getListeVote()[i];
                 json += "{'choix':'" + vote.getChoixFait().getId() + "', 'prenom':'" + vote.getPrenom() + "'}";
-                //Pensez à ajouter les virgules en cas d'envoi de plusieurs lignes.
             }
             json += "]}";
             return json;
         }
         /// <summary>
-        /// Fonction permettant la transformation des objets liés à l'élection en chaine de caractère au format XML.
+        /// Generate the XML with the election informations.
         /// </summary>
-        /// <param name="election"> Objet Election contenant les autres objets Vote et Choix</param>
-        /// <returns>Retourne la chaine de caractère au format XML</returns>
+        /// <param name="election"> Election object containing Votes and Choices</param>
+        /// <returns>XML String</returns>
         public String generateXML(Election election)
         {
             String xml = "<Election id:\"" + election.getNom() + "\">";
@@ -185,13 +181,15 @@ namespace VoteByLeapMotionProject
             return xml;
         }
         /// <summary>
-        /// Fonction permettant d'envoyer les informations vers le serveur
-        /// TODO
+        /// Function to send the informations to the API
         /// </summary>
-        /// <param name="fichier">demande les données à envoyer (Format JSON ou XML, à appeler avec les fonctions generateXML et generateJSon</param>
+        /// <param name="fichier">JSON or XML file to send</param>
         public void envoiInformation(String fichier)
         {
-            String url = "coreosjpg.cloudapp.net/votes";
+            String url = "localhost:5004/api/votes/elections";
+            String method = "POST";
+            String data = fichier;
+            ////TODO Create and call the method that send the votes
             SafeWriteLine("url = " +url + " xml "+fichier);
         }
     }
@@ -203,7 +201,7 @@ namespace VoteByLeapMotionProject
             // Create a sample listener and controller
             SampleListener listener = new SampleListener();
             Controller controller = new Controller();
-            // Keep this process running until Enter is pressed
+            // Keep the process running until Enter is pressed
             controller.AddListener(listener);
             Console.WriteLine("Appuyez sur la touche échape pour quitter: \n");
             listener.initSampleListener();
