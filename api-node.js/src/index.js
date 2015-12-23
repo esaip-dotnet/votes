@@ -11,64 +11,83 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-var elections =[];
+var elections = [];
 
-app.get('/api/Votes/Elections', function(req, res) {
-
-	res.contentType('application/json');
-	res.status(200);
-	res.json(elections);
+app.get('/api/Votes/Elections', function(request, response) {
+	if(elections.length === 0){
+		response.contentType('text/html');
+		response.status(204).send("No existing Election.");
+	}else{
+		response.contentType('application/json');
+		response.status(200).json(elections);
+	}
 });
 
-app.param('id', function (req, res, next, id) {
+app.param('id', function (request, response, next, id) {
 	next();
 });
 
-app.get('/api/Votes/Elections/:id', function(req, res) {
+app.get('/api/Votes/Elections/:id', function(request, response) {
 	var election = '';
 	for(i in elections){
-		if(elections[i].id === req.params.id){
+		console.log(elections[i]);
+		if(elections[i].id === request.params.id){
 			election = elections[i];
 		}
 	}
 
 	if(election === ""){
-		res.status(404);
-		res.send("404, this election does not exist!");
+		response.contentType('text/html');
+		response.status(404).send("This election does not exist!");
 	}else{
-		res.contentType('application/json');
-		res.status(200);
-		res.json(election);
+		response.contentType('application/json');
+		response.status(200).json(election);
 	}
 });
 
-app.put('/api/Votes/Elections/:id', function(req, res) {
-	var election = {id: req.params.id, votes:[]};
+app.put('/api/Votes/Elections/:id', function(request, response) {
+	var election = {id: request.params.id, votes:[]};
 	elections.push(election);
-	res.status(200);
-	res.send(elections);
+	response.contentType('application/json');
+	response.status(200).json(elections);
 });
 
-app.post('/api/Votes/Elections/:id/Votes', function(req, res) {
+app.post('/api/Votes/Elections/:id/Votes', function(request, response) {
 	var election = '';
 	for(i in elections){
-		if(elections[i].id === req.params.id){
-			elections[i].votes.push(req.body);
-			election = elections[i];
-
+		console.log(elections[i]);
+		if(elections[i].id === request.params.id){
+			if(request.body.prenom && request.body.choix){
+				elections[i].votes.push(request.body);
+				election = elections[i];
+			}else{
+				response.contentType('text/html');
+				response.status(400).send("Wrong format for the vote JSON.");
+			}
 		}
 	}
 	if(election === ""){
-		res.status(404);
-		res.send("404, this election does not exist!");
+		response.contentType('text/html');
+		response.status(404).send("This election does not exist!");
 	}else{
-		res.status(200)
-		res.json(election);
+		response.contentType('application/json');
+		response.status(200).json(election);
 	}
 });
 
-app.all('*', function(req, res){
-  res.send('400, this URL does not exist!', 400);
+app.all('/api',function(request,response){
+    response.contentType('text/html');
+	response.status(418).send('I am a teapot API.');
+});
+
+app.delete('*',function(request,response){
+	response.contentType('text/html');
+    response.status(405).send('DELETE method not allowed.');
+});
+
+app.all('*', function(request, response){
+	response.contentType('text/html');
+	response.status(400).send('This URL does not exist, or the HTTP method is incorrect. See the readme to see valid requests.');
 });
 
 app.listen(port);
