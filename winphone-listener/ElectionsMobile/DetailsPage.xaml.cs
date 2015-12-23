@@ -35,7 +35,7 @@ namespace ElectionsMobile
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string List = "";
+            //string List = "";
             //App.ViewModel.getlisteprenom;
         }
     }

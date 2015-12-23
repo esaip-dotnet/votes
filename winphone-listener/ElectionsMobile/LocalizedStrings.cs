@@ -3,7 +3,7 @@
 namespace ElectionsMobile
 {
     /// <summary>
-    /// Permet d'accéder aux ressources de chaîne.
+    /// Provides access to the string resources.
     /// </summary>
     public class LocalizedStrings
     {

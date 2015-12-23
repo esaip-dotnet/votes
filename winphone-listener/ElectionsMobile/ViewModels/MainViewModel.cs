@@ -18,7 +18,7 @@ namespace ElectionsMobile.ViewModels
         private List<String> ListePrenomOui = new List<string>();
         private List<String> ListePrenomNon = new List<string>();
         //It is here that we declare the URL to get all Elections with vote and prenom
-        const string apiUrl = @"http://coreosjpg.cloudapp.net/api/Votes/Elections";
+        string apiUrl = ElectionsMobile.Resources.AppResources.LinkServer;
         //constructor
         public MainViewModel()
         {
@@ -54,6 +54,7 @@ namespace ElectionsMobile.ViewModels
             for (int i = 0; i < nb; i++)
             {
                 return listeprenom[i] + Environment.NewLine;
+                 
             }
             return string.Empty;
         }
@@ -99,7 +100,7 @@ namespace ElectionsMobile.ViewModels
                             LineOne = election.id,//we put the id of the election
                             LineTwo = "Votes: Oui = " + Nb_Oui + " Non = " + Nb_Non,//we put the number of yes and no
                             LineThree = "Total = " + election.VoteDetails.Count.ToString() + " votes",//we put the number of person who have vote
-                            
+                                       
 
                         });
                     } this.IsDataLoaded = true;
@@ -112,7 +113,8 @@ namespace ElectionsMobile.ViewModels
                     ID = "0",
                     LineOne = "An Error Occurred",
                     LineTwo = String.Format("The following exception occured: {0}", ex.Message),
-                    LineThree = String.Format("Additional inner exception information: {0}", ex.InnerException.Message)
+                    LineThree = String.Format("Additional inner exception information: {0}", ex.InnerException.Message),
+                    //ListPrenom = this.getlisteprenom(this.)
                 });
             }
         }

@@ -9,10 +9,7 @@ namespace ElectionsMobile.Models
     //Declaration of the class VoteDetails
     class VoteDetails
     {
-            
             public int choix { get; set; }
-            public String prenom { get; set; }
-
-        
+            public String prenom { get; set; }   
     }
 }
