@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System;
 using System.Net;
 using System.Timers;
-namespace TD_YMCA
+namespace kinectVote
 {
     public partial class MainWindow : Window
     {
@@ -30,8 +30,7 @@ namespace TD_YMCA
         private List<String> listeVotant = new List<string>();
         private Timer timer = new Timer(1000);
         private int countDown;
-        //private DetecteurLettres MoteurDetection = new DetecteurLettres();
-        //private char DerniereLettre;
+
         public MainWindow()
         {
             this.kinectSensor = KinectSensor.GetDefault();
@@ -139,31 +138,24 @@ namespace TD_YMCA
             Point PosCentreEpaule = TransformCameraPoint(joints[JointType.SpineShoulder].Position);
             Point PosCoudeGauche = TransformCameraPoint(joints[JointType.ElbowLeft].Position);
             Point PosCoudeDroit = TransformCameraPoint(joints[JointType.ElbowRight].Position);
-            //Debug.WriteLine(string.Format("MG:{0} / MD:{1} / CE:{2} / CG:{3} / CD:{4}", PosMainGauche, PosMainDroite, PosCentreEpaule, PosCoudeGauche, PosCoudeDroit));
-            //Debug.WriteLine(string.Format("MG:{0}-{1} / MD:{2}-{3} / CE:{4}-{5} / CG:{6}-{7} / CD:{8}-{9}", Convert.ToInt16(PosMainGauche.X), Convert.ToInt16(PosMainGauche.Y), Convert.ToInt16(PosMainDroite.X),
-            //Convert.ToInt16(PosMainDroite.Y), Convert.ToInt16(PosCentreEpaule.X), Convert.ToInt16(PosCentreEpaule.Y), Convert.ToInt16(PosCoudeGauche.X), Convert.ToInt16(PosCoudeGauche.Y), Convert.ToInt16(PosCoudeDroit.X), Convert.ToInt16(PosCoudeDroit.Y)));
-            //File.AppendAllText(@"C:\temp\kinectdata.csv", string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}" + Environment.NewLine, Convert.ToInt16(PosMainGauche.X), Convert.ToInt16(PosMainGauche.Y), Convert.ToInt16(PosMainDroite.X), Convert.ToInt16(PosMainDroite.Y), Convert.ToInt16(PosCentreEpaule.X), Convert.ToInt16(PosCentreEpaule.Y), Convert.ToInt16(PosCoudeGauche.X), Convert.ToInt16(PosCoudeGauche.Y), Convert.ToInt16(PosCoudeDroit.X), Convert.ToInt16(PosCoudeDroit.Y)));
-            //Votant.Text(ListeVotant[0]);
 
             if (listeVotant.Count != 0)
             {
                 Votant.Text = listeVotant[0];
 
-                //Si main gauche levée
+                // Left hand
                 if (PosMainGauche.Y < PosCentreEpaule.Y && PosMainDroite.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("Main gauche");
                     choix = "Gauche";
                     if (timer.Enabled == false) {
                         timer.Enabled = true;
                         countDown = 5;
                     }
-                    
+
                 }
-                //Si main droit levée
+                // Right hand
                 else if (PosMainDroite.Y < PosCentreEpaule.Y && PosMainGauche.Y > PosCentreEpaule.Y)
                 {
-                    //Console.WriteLine("Main gauche");
                     choix = "Droite";
                     if (timer.Enabled == false)
                     {
@@ -178,7 +170,6 @@ namespace TD_YMCA
 
                 if (hasVoted)
                 {
-                    //Écriture du Json
                     String dataJson = "{";
                     if (choix == "Droite")
                     {
@@ -194,9 +185,9 @@ namespace TD_YMCA
                         dataJson += listeVotant[0] + "'";
                         dataJson += "}";
 
-                    }                    
-
-                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("http://coreosjpg.cloudapp.net/api/votes/Elections/BDE/Votes");
+                    }
+                    // Default url for the API, change it with your server address.
+                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("http://localhost:5004/api/votes/Elections/BDE/Votes");
                     request.ContentType = "application/json";
                     request.Method = "POST";
                     StreamWriter streamWriter = new StreamWriter(request.GetRequestStream());
@@ -205,9 +196,9 @@ namespace TD_YMCA
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                     listeVotant.Remove(listeVotant[0]);
-                    hasVoted = false; 
-    
-                }              
+                    hasVoted = false;
+
+                }
 
             }
             foreach (var bone in this.bones)
@@ -226,7 +217,7 @@ namespace TD_YMCA
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            //Handler appelé toutes les secondes.
+            //Handler called every second
             --countDown;
             if (countDown == 0)
             {

@@ -1,8 +1,8 @@
-﻿<Window x:Class="TD_YMCA.MainWindow"
+﻿<Window x:Class="kinectVote.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TD YMCA" 
-        Height="600" Width="700" 
+        Title="Kinect Vote"
+        Height="600" Width="700"
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing"
         WindowStartupLocation="CenterScreen">
@@ -14,9 +14,9 @@
         <Viewbox Grid.Row="0" HorizontalAlignment="Center">
             <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
         </Viewbox>
-        <TextBox Grid.Row="1" Name="TexteReconnu" FontSize="40"/>
+        <TextBox Grid.Row="1" Name="TexteReconnu" FontSize="42"/>
         <Label Content="Vote : Référendum BDE" HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.563,3.452"/>
-        <Label Content="Choix : &#xD;&#xA;-Oui (Lever votre main droite)&#xD;&#xA;-Non (Lever votre main gauche)&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,64,0,0" RenderTransformOrigin="0.646,0.711"/>
+        <Label Content="Choix : &#xD;&#xA;- Oui (Main droite)&#xD;&#xA;- Non (Main gauche)&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,64,0,0" RenderTransformOrigin="0.646,0.711"/>
         <TextBox HorizontalAlignment="Left" Name ="Votant" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.651,6.289" Margin="10,143,0,0"/>
         <Label Content="Votant :&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,112,0,0"/>
     </Grid>
