@@ -16,14 +16,14 @@ namespace ElectionsMobile
         private static MainViewModel viewModel = null;
 
         /// <summary>
-        /// ViewModel statique utilisé par les vues avec lesquelles établir la liaison.
+        /// Static ViewModel used by the views with which to link to.
         /// </summary>
         /// <returns>Objet MainViewModel.</returns>
         public static MainViewModel ViewModel
         {
             get
             {
-                // Différer la création du modèle de vue autant que nécessaire
+                // Delaying the creation of the model view as necessary
                 if (viewModel == null)
                     viewModel = new MainViewModel();
 
@@ -32,81 +32,70 @@ namespace ElectionsMobile
         }
 
         /// <summary>
-        /// Permet d'accéder facilement au frame racine de l'application téléphonique.
+        /// Easy access to the root frame of the phone application.
         /// </summary>
-        /// <returns>Frame racine de l'application téléphonique.</returns>
+        /// <returns>Frame root of the phone application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         /// <summary>
-        /// Constructeur pour l'objet Application.
+        /// Constructor for the Application object.
         /// </summary>
         public App()
         {
-            // Gestionnaire global pour les exceptions non interceptées.
+            // Global Manager for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
-            // Initialisation du XAML standard
+            // Standard XML initialization
             InitializeComponent();
 
-            // Initialisation spécifique au téléphone
+            //Specific initialization phone
             InitializePhoneApplication();
 
-            // Initialisation de l'affichage de la langue
+            // Initializing of the display language
             InitializeLanguage();
 
-            // Affichez des informations de profilage graphique lors du débogage.
+            // Display graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {
-                // Affichez les compteurs de fréquence des trames actuels.
+                // Display current frequency counters frames.
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
-                // Affichez les zones de l'application qui sont redessinées dans chaque frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Activez le mode de visualisation d'analyse hors production,
-                // qui montre les zones d'une page sur lesquelles une accélération GPU est produite avec une superposition colorée.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
-
-                // Empêche l'écran de s'éteindre lorsque le débogueur est utilisé en désactivant
-                // la détection de l'état inactif de l'application.
-                // Attention :- À utiliser uniquement en mode de débogage. Les applications qui désactivent la détection d'inactivité de l'utilisateur continueront de s'exécuter
-                // et seront alimentées par la batterie lorsque l'utilisateur ne se sert pas du téléphone.
+               
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
         }
 
-        // Code à exécuter quand une activation de contrat telle qu’une ouverture de fichier ou un sélecteur d’enregistrement de fichier retourne 
-        // avec le fichier sélectionné ou autres valeurs de retour
+        // Code to run when a contract activation such as file open or save file selector returns
+        // With the selected file or other return values
         private void Application_ContractActivated(object sender, Windows.ApplicationModel.Activation.IActivatedEventArgs e)
         {
         }
-
-        // Code à exécuter lorsque l'application démarre (par exemple, à partir de Démarrer)
-        // Ce code ne s'exécute pas lorsque l'application est réactivée
+        // Code to execute when the application starts (eg from Start)
+        // This code does not run when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
         }
 
-        // Code à exécuter lorsque l'application est activée (affichée au premier plan)
-        // Ce code ne s'exécute pas lorsque l'application est démarrée pour la première fois
+        // Code to execute when the application is activated (displayed in the foreground)
+        // This code does not run when the application is started for the first time
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Assurez-vous que l'état de l'application est correctement restauré
+            // Make sure the status of the application is properly restore
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
             }
         }
 
-        // Code à exécuter lorsque l'application est désactivée (envoyée à l'arrière-plan)
-        // Ce code ne s'exécute pas lors de la fermeture de l'application
+        // Code to execute when the application is deactivated (sent to the background)
+        // This code does not run when the application is closed
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            // Assurez-vous que l'état de l'application requis est persistant ici.
+            
         }
 
-        // Code à exécuter lors de la fermeture de l'application (par exemple, lorsque l'utilisateur clique sur Précédent)
-        // Ce code ne s'exécute pas lorsque l'application est désactivée
+        // Code to run when closing the application (for example, when the user clicks Back)
+        // This code does not run when the application is disabled
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
         }
@@ -116,17 +105,17 @@ namespace ElectionsMobile
         {
             if (Debugger.IsAttached)
             {
-                // Échec d'une navigation ; arrêt dans le débogueur
+                
                 Debugger.Break();
             }
         }
 
-        // Code à exécuter sur les exceptions non gérées
+        // Code to run on unhandled exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             if (Debugger.IsAttached)
             {
-                // Une exception non gérée s'est produite ; arrêt dans le débogueur
+                // An unhandled exception occurred; stop in the debugger
                 Debugger.Break();
             }
         }
@@ -197,52 +186,20 @@ namespace ElectionsMobile
 
         #endregion
 
-        // Initialise la police de l'application et le sens du flux tels qu'ils sont définis dans ses chaînes de ressource localisées.
-        //
-        // Pour vous assurer que la police de votre application est alignée avec les langues prises en charge et que le
-        // FlowDirection pour chacune de ces langues respecte le sens habituel, ResourceLanguage
-        // et ResourceFlowDirection doivent être initialisés dans chaque fichier resx pour faire correspondre ces valeurs avec la
-        // culture du fichier. Par exemple :
-        //
-        // AppResources.es-ES.resx
-        //    La valeur de ResourceLanguage doit être « es-ES »
-        //    La valeur de ResourceFlowDirection doit être « LeftToRight »
-        //
-        // AppResources.ar-SA.resx
-        //     La valeur de ResourceLanguage doit être « ar-SA »
-        //     La valeur de ResourceFlowDirection doit être « RightToLeft »
-        //
-        // Pour plus d'informations sur la localisation des applications Windows Phone, consultez le site http://go.microsoft.com/fwlink/?LinkId=262072.
-        //
+        
         private void InitializeLanguage()
         {
             try
             {
-                // Définissez la police pour qu'elle corresponde à la langue d'affichage définie par la
-                // chaîne de ressource ResourceLanguage pour chaque langue prise en charge.
-                //
-                // Rétablit la police de la langue neutre si la langue d'affichage
-                // du téléphone n'est pas prise en charge.
-                //
-                // Si une erreur de compilateur est détectée, ResourceLanguage est manquant dans
-                // le fichier de ressources.
+                
                 RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
 
-                // Définit FlowDirection pour tous les éléments sous le frame racine en fonction de la
-                // de la chaîne de ressource ResourceFlowDirection pour chaque
-                // langue prise en charge.
-                //
-                // Si une erreur de compilateur est détectée, ResourceFlowDirection est manquant dans
-                // le fichier de ressources.
+               
                 FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
                 RootFrame.FlowDirection = flow;
             }
             catch
             {
-                // Si une exception est détectée ici, elle est probablement due au fait que
-                // ResourceLanguage n'est pas correctement défini sur un code de langue pris en charge
-                // ou que ResourceFlowDirection est défini sur une valeur différente de LeftToRight
-                // ou RightToLeft.
 
                 if (Debugger.IsAttached)
                 {

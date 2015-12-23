@@ -6,35 +6,37 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Landscape"
+    SupportedOrientations="Landscape"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <!--L'exemple de données ci-dessus et le premier élément de l'exemple de collecte de données ci-dessous sont affectés au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
+    <!--The example given above and the first element of the example data collection below are assigned to the context data and LayoutRoot contains the root gate where all the content on other pages are placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{Binding Items[0]}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel contient le nom de l'application et le titre de la page-->
+        <!--TitlePanel contains the application name and the title of the page-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="APPLICATION VOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="{Binding LineOne}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
-        <!--ContentPanel contient le texte des détails. Placez tout contenu supplémentaire ici-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <!--ContentPanel Contains the text of the details. Place any extra content here-->
+        <Grid x:Name="ContentPanel" Margin="-19,126,43,35" Grid.RowSpan="2">
             <TextBlock Text="{Binding LineFour}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
             <TextBlock Text="{Binding LineFive}" TextWrapping="Wrap" Margin="12,12,12,12" Style="{StaticResource PhoneTextSubtleStyle}"/>
         </Grid>
-        <TextBox HorizontalAlignment="Left" Height="517" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456" Margin="-9,35,0,-233" Grid.Row="1" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="ListPrenom" HorizontalAlignment="Left" Height="351" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456" Margin="0,115,0,0" TextChanged="TextBox_TextChanged" Grid.RowSpan="2"/>
 
-        
+
     </Grid>
 
 </phone:PhoneApplicationPage>

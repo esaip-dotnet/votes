@@ -7,14 +7,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Landscape"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <!--L'exemple de données ci-dessus est affecté au contexte de données et LayoutRoot contient la grille racine où tout le contenu des autres pages est placé-->
+    <!--The example given above is assigned to the data context and LayoutRoot contains the root grid where all the content is placed on other pages-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel contient le nom de l'application et le titre de la page-->
+        <!--TitlePanel contains the application name and the title of the page-->
         <StackPanel Grid.Row="0" Margin="10,23,38,22" RenderTransformOrigin="0.5,0.5">
             <TextBlock Text="APPLICATION VOTE" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="Election" Margin="9,-7,0,0" Style="{StaticResource PhoneTextNormalStyle}" FontSize="50" Foreground="#FFFFE800" RenderTransformOrigin="0.5,0.5">
@@ -32,7 +32,8 @@
             </TextBlock>
         </StackPanel>
 
-        <!--ContentPanel contient LongListSelector et LongListSelector ItemTemplate. Placez tout contenu supplémentaire ici-->
+        <!--
+ContentPanel contains LongListSelector and LongListSelector ItemTemplate. Place any additional content here -->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector x:Name="MainLongListSelector" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged">
                 <phone:LongListSelector.ItemTemplate>

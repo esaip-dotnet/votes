@@ -14,7 +14,7 @@ namespace ElectionsMobile.ViewModels
     {
         private string _id;
         /// <summary>
-        /// Exemple de propriété ViewModel ; cette propriété est utilisée pour identifier l'objet.
+        /// Example ViewModel property; this property is used to identify the object.
         /// </summary>
         /// <returns></returns>
         public string ID
@@ -35,7 +35,7 @@ namespace ElectionsMobile.ViewModels
 
         private string _lineOne;
         /// <summary>
-        /// Exemple de propriété ViewModel ; cette propriété est utilisée dans la vue pour afficher sa valeur à l'aide d'une liaison.
+        /// Example ViewModel property; This property is used in order to display its value using a link.
         /// </summary>
         /// <returns></returns>
         public string LineOne
@@ -56,7 +56,7 @@ namespace ElectionsMobile.ViewModels
 
         private string _lineTwo;
         /// <summary>
-        /// Exemple de propriété ViewModel ; cette propriété est utilisée dans la vue pour afficher sa valeur à l'aide d'une liaison.
+        /// Example ViewModel property; This property is used in order to display its value using a link.
         /// </summary>
         /// <returns></returns>
         public string LineTwo
@@ -77,7 +77,7 @@ namespace ElectionsMobile.ViewModels
 
         private string _lineThree;
         /// <summary>
-        /// Exemple de propriété ViewModel ; cette propriété est utilisée dans la vue pour afficher sa valeur à l'aide d'une liaison.
+        /// Example ViewModel property; This property is used in order to display its value using a link.
         /// </summary>
         /// <returns></returns>
         public string LineThree
@@ -105,5 +105,11 @@ namespace ElectionsMobile.ViewModels
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public string LineFour { get; set; }
+
+        public string LineFive { get; set; }
+
+        public string ListPrenom { get; set; }
     }
 }
