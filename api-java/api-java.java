@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
-public class Hello {
+public class votesAPI {
 
 
     String data = "
@@ -33,14 +33,34 @@ public class Hello {
 
 
     public static void main(String[] args) {
-        setPort(5000);
+        setPort(5004);
 
-        get("/api/Votes/Elections", (request, response) -> {
+        get("/api/votes/Elections", (request, response) -> {
+
+            response.type("application/json")
+            return data;
+
+        }
+
+        get("/api/votes/Elections/:id", (request, response) -> {
+
+            response.type("application/json")
+            return data;
+
+        }
+
+        put("//api/votes/Elections/:id", (request, response) -> {
+
+            response.type("application/json")
+            return data;
+
+        }
+
+        post("/api/votes/Elections/:id/votes", (request, response) -> {
 
             response.type("application/json")
             return data;
 
         }
     }
-}
 }
