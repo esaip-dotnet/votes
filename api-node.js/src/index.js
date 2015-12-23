@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express  = require('express');
 var app = express();
 var port = process.env.PORT || 5004;
@@ -11,16 +12,12 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-var elections = [];
+var elections = require("./data/elections.json");
 
 app.get('/api/Votes/Elections', function(request, response) {
-	if(elections.length === 0){
-		response.contentType('text/html');
-		response.status(204).send("No existing Election.");
-	}else{
+	console.log(elections.length);
 		response.contentType('application/json');
 		response.status(200).json(elections);
-	}
 });
 
 app.param('id', function (request, response, next, id) {
@@ -48,8 +45,13 @@ app.get('/api/Votes/Elections/:id', function(request, response) {
 app.put('/api/Votes/Elections/:id', function(request, response) {
 	var election = {id: request.params.id, votes:[]};
 	elections.push(election);
-	response.contentType('application/json');
-	response.status(200).json(elections);
+	fs.writeFile('data/elections.json', JSON.stringify(elections), function(error) {
+		if(error) {
+			return console.log(error);
+		}
+		response.contentType('application/json');
+		response.status(200).json(elections);
+	});
 });
 
 app.post('/api/Votes/Elections/:id/Votes', function(request, response) {
@@ -60,6 +62,12 @@ app.post('/api/Votes/Elections/:id/Votes', function(request, response) {
 			if(request.body.prenom && request.body.choix){
 				elections[i].votes.push(request.body);
 				election = elections[i];
+
+				fs.writeFile('data/elections.json', JSON.stringify(elections), function(error) {
+					if(error) {
+						return console.log(error);
+					}
+				});
 			}else{
 				response.contentType('text/html');
 				response.status(400).send("Wrong format for the vote JSON.");
