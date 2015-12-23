@@ -1,4 +1,4 @@
-# api-core.net
+# api-python
 This is the Python version of the voting API. it uses flask web framework.
 
 ## Contract

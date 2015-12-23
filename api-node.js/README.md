@@ -1,5 +1,8 @@
-# api-core.net
-This is the Node js version of the voting API. it uses Express web framework.
+# api-node.js
+This is the Node js version of the voting API.
+It uses Express web framework.
+Data persistence is made with the elections.json file located in /src/data folder.
+Can handle simple concurrency for creating and voting. (put and post requests)
 
 ## Contract
 The API exposes four operations under the /api/votes base:
