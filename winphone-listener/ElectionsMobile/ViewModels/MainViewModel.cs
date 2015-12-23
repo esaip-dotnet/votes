@@ -15,6 +15,7 @@ namespace ElectionsMobile.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {   //Add of the List ListePrenomOui/Non witch take all the name where the vote is yes/no
+        //
         private List<String> ListePrenomOui = new List<string>();
         private List<String> ListePrenomNon = new List<string>();
         //It is here that we declare the URL to get all Elections with vote and prenom
