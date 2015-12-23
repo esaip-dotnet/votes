@@ -17,24 +17,28 @@ namespace VoteByLeapMotionProject
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Action done with a click on the button buttonVote
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonVote_Click(object sender, EventArgs e)
         {
             election = (Election)this.electionComboBox.SelectedItem;
+            //each time we click on the button, we put the label error to void and depending of the error occuring, 
+            //we fullfil it with valuable informartion for the user
             this.labelError.Text ="";
             if (election != null)
             {
-                 String nom = this.textBoxName.Text;
+                String nom = this.textBoxName.Text;
                 String password = this.textBoxPassword.Text;
                 //we verify that the password and the name are not void and we see if it contains test inside, 
                 //it's done insteed of the API connection system because this one is not yet available.
                 if (nom != null && password != null && nom.Length > 0 && password.Length > 0 && nom.Contains("test") && password.Contains("test"))
                 {
-                    foreach (Choix choix in election.choix)
-                    {
-                        System.Diagnostics.Debug.WriteLine(choix.id);
-                    }
-                    VoteWindow voteForm = new VoteWindow(election);
+                    // if we are valid login and password and an election is selected, 
+                    // we open a new window, sending it the election selected and the name of the user
+                    VoteWindow voteForm = new VoteWindow(election, nom);
                     voteForm.Show();
                 }
                 else{

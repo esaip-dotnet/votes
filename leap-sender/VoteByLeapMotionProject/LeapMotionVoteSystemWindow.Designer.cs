@@ -28,13 +28,19 @@ namespace VoteByLeapMotionProject
 
         #region Windows Form Designer generated code
 
+        //
+        // this function is done to get all the elections from the API, that allow the user to choose for which election he is voting
+        // a Default election is done named BDE
+        //
 
         public void addElectionsFromUrlIntoComboBox()
         {
             List<Election> elections = new List<Election>();
             elections.Add(new Election("BDE"));
+            
+            // We will try to catch information for the different elections directly from the server, a problem is occuring on this part, making the project unrunnable
             string urlToCall = ConfigurationManager.AppSettings["urlServer"];
-            /* try
+           /* try
              {
                  HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(urlToCall);
                  request.ContentType = "application/json";
@@ -53,10 +59,12 @@ namespace VoteByLeapMotionProject
              catch (WebException we)
              {
                  System.Diagnostics.Debug.WriteLine(we);
+                 labelError.Text = "Problème de connexion avec le serveur";
              }*/
-        /*    try
-            {*/
-                if (elections.Count == 0) elections.Add(new Election("BDE"));
+             
+            //this part add choice for each election depending to file app.config, to know more about choice generation, please watch the readme file of the leap motion part
+            try
+            {
                 foreach (Election election in elections)
                 {
                     string[] varSplit = { "," };
@@ -64,29 +72,26 @@ namespace VoteByLeapMotionProject
                     foreach (string labelChoix in tabLabelChoix)
                     {
                         int idChoix = 0;
-                       /* try
-                        {*/
+                        try
+                        {
                             idChoix = int.Parse(ConfigurationManager.AppSettings[labelChoix]);
-                            election.choix.Add(new Choix() { id = idChoix, nom = labelChoix });
-                   /*     }
+                            election.choix.Add(idChoix, new Choix() { id = idChoix, nom = labelChoix });
+                        }
                         catch (Exception e)
                         {
                             System.Diagnostics.Debug.WriteLine(e);
-                        }*/
+                            labelError.Text = "Problème avec le fichier App.config, les lignes avec les noms des choix ne contiennent pas de chiffre sur leurs valeurs";
+                        }
 
-                    }
-                    foreach (Choix choix in election.choix)
-                    {
-                        System.Diagnostics.Debug.WriteLine(choix.id);
                     }
                 }
 
-           /* }
+            }
 
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
-            }*/
+            }
 
             foreach (Election election in elections)
             {
@@ -196,6 +201,7 @@ namespace VoteByLeapMotionProject
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(764, 417);
+            addElectionsFromUrlIntoComboBox();
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonVote);
             this.Controls.Add(this.labelInstructionPassword);

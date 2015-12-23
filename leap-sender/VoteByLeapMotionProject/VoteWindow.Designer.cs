@@ -7,18 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -28,27 +16,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelInfoChoix1 = new System.Windows.Forms.Label();
-            this.labelInfoChoix2 = new System.Windows.Forms.Label();
+            
             this.labelTitleElection = new System.Windows.Forms.Label();
             this.labelAction = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // labelInfoChoix1
+            // labelInfoChoix creating dynamicaly label for each choice contained inside the election
+            // the posY change the vertical position for each label added 
             // 
-            this.labelInfoChoix1.AutoSize = true;
-            this.labelInfoChoix1.Location = new System.Drawing.Point(241, 62);
-            this.labelInfoChoix1.Name = "labelInfoChoix1";
-            this.labelInfoChoix1.Size = new System.Drawing.Size(0, 13);²
-            this.labelInfoChoix1.TabIndex = 0;
-            // 
-            // labelInfoChoix2
-            // 
-            this.labelInfoChoix2.AutoSize = true;
-            this.labelInfoChoix2.Location = new System.Drawing.Point(241, 90);
-            this.labelInfoChoix2.Name = "labelInfoChoix2";
-            this.labelInfoChoix2.Size = new System.Drawing.Size(0, 13);
-            this.labelInfoChoix2.TabIndex = 1;
+            int posY = 62;
+            foreach (int idChoix in election.choix.Keys)
+            {
+                System.Windows.Forms.Label labelInfoChoix = new System.Windows.Forms.Label();
+                labelInfoChoix.AutoSize = true;
+                labelInfoChoix.Location = new System.Drawing.Point(241, posY);
+                labelInfoChoix.Name = "labelChoix" + election.choix[idChoix].nom;
+                labelInfoChoix.Size = new System.Drawing.Size(0, 13);
+                labelInfoChoix.TabIndex = 0;
+                this.Controls.Add(labelInfoChoix);
+                posY = posY + 28;
+            }
+
             // 
             // labelTitleElection
             // 
@@ -66,7 +54,7 @@
             this.labelAction.Name = "labelAction";
             this.labelAction.Size = new System.Drawing.Size(59, 13);
             this.labelAction.TabIndex = 4;
-            this.labelAction.Text = "labelAction";
+            this.labelAction.Text = "";
             // 
             // VoteWindow
             // 
@@ -75,10 +63,8 @@
             this.ClientSize = new System.Drawing.Size(952, 410);
             this.Controls.Add(this.labelAction);
             this.Controls.Add(this.labelTitleElection);
-            this.Controls.Add(this.labelInfoChoix2);
-            this.Controls.Add(this.labelInfoChoix1);
-            this.Name = "VoteWindow";
-            this.Text = "Form1";
+            this.Name = "Vote Window";
+            this.Text = "Vous allez voter !";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,8 +72,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelInfoChoix1;
-        private System.Windows.Forms.Label labelInfoChoix2;
+
         private System.Windows.Forms.Label labelTitleElection;
         private System.Windows.Forms.Label labelAction;
     }

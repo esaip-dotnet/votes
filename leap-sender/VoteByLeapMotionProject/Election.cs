@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace VoteByLeapMotionProject
 {
-    [DataContract(Name = "Election", Namespace = "VoteByLeapMotionProject")]
+    [DataContract]
     public class Election
     {
+        [DataMember]
         public string nom { get; set; }
-        public List<Choix> choix { get; set; }
+        [DataMember]
+        public Dictionary<int, Choix> choix { get; set; }
+        [DataMember]
         public List<Vote> votes { get; set; }
 
         public Election(string nom)
         {
             this.nom = nom;
-            choix = new List<Choix>();
+            choix = new Dictionary<int, Choix>();
             votes = new List<Vote>();
         }
         public override String ToString()
