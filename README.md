@@ -1,23 +1,59 @@
 # votes
-This sample application simulates a vote exchange mechanism with several services. The API receives, stores in memory and delivers
-votes on given elections. A Windows Phone mobile application retrieves the number of votes. Two different applications are
-provided to send votes, both using natural interfaces. The first one uses a Kinect peripheral, and the second one a Leap Motion.
+
+This sample application simulates a vote exchange mechanism with several services. This is part of a student project in ESAIP school.
+
+## Components
+
+ - 2 sender applications developed for specific devices to vote: **Leap motion** and **Kinect**. It allows simple and natural vote with movement detection.
+ - A **server API** (REST) to manage and store the elections data.
+ - A **Windows Phone application** to retrieve and display the data.
+
+
+**Sender Application**  -->  **Server API**  -->  **.NET API**  -->  **Mobile Application**
+
 
 ## Architecture
-The application allows for four services for the API implementation:
 
-- **api-core.net** : version written in Core .NET (1.0.0-beta4);
-- **api-python** : version written in Python (Flask framework);
-- **api-java** : version written in Java 8 (Spark framework);
+There is a folder and a readme file for each component of the application. 
+Each part is independent and can be updated on its own.
+Sender and mobile applications are using .NET and C# language.
+
+There are 4 API implementation:
+
+- **api-core.net** : version written in Core .NET (1.0.0-beta4).
+- **api-python** : version written in Python (Flask framework).
+- **api-java** : version written in Java 8 (Spark framework).
 - **api-node.js** : version written in Node.JS with Express.
 
-## Use
+## Use of the APIs
+The APIs can be runned using Docker.
 Easiest way to run the application is to use the docker-compose.yml file that is provided :
 
-    git clone https://github.com/esaip-dotnet/votes.git
+    git clone https://github.com/antoine-f/votes.git
     cd votes
     docker-compose build
     docker-compose up
 
-Then run the Kinect or Leap application and follow the voting instruction. Once votes are recorded, use the mobile application
-to retrieve the results for the election.
+### REST API documentation
+
+The API exposes four routes under the /api/votes base:
+
+- **/Elections (GET)** : returns all elections;
+- **/Elections/{id} (GET)** : returns a given election;
+- **/Elections/{id} (PUT)** : creates an election (idempotent) - election are created without any votes;
+- **/Elections/{id}/Votes (POST)** : sends a vote.
+
+The JSON basic format is the following for one election:
+> {
+>   "id" : "BDE",
+>   "votes" : [
+>      { choix : 1, prenom : "Corentin" },
+>      { choix : 1, prenom : "Antoine" }
+>   ]
+> }
+
+## How to run it
+
+Set up one of the API on your server or locally. (using Docker)
+Then run the Kinect or Leap application and follow the voting instruction. 
+Once votes are recorded, use the mobile application to retrieve the results for the election.
