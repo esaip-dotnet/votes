@@ -1,1 +1,23 @@
-C:\Users\benamor\Documents\Visual Studio 2013\Projects\votes-master\votes-master\kinect-sender\TD_YMCA\bin\Debug\TD_YMCA.exe.config
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\TD_YMCA.exe.config
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\TD_YMCA.exe
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\TD_YMCA.pdb
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\Microsoft.Kinect.dll
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\mscorlib.dll
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\Microsoft.Kinect.xml
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\fr\mscorlib.resources.dll
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\nl\mscorlib.resources.dll
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\normidna.nlp
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\normnfc.nlp
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\normnfd.nlp
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\normnfkc.nlp
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\bin\Debug\normnfkd.nlp
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.csprojResolveAssemblyReference.cache
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\MainWindow.baml
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\MainWindow.g.cs
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\App.g.cs
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA_MarkupCompile.cache
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.g.resources
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.Properties.Resources.resources
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.csproj.GenerateResource.Cache
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.exe
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\kinect-sender\TD_YMCA\obj\Debug\TD_YMCA.pdb

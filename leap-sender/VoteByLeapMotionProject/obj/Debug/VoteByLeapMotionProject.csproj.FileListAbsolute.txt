@@ -5,9 +5,9 @@ c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\
 c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
 c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
 c:\users\corentin\documents\visual studio 2013\Projects\VoteByLeapMotionProject\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.csprojResolveAssemblyReference.cache
-C:\Users\benamor\Desktop\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe.config
-C:\Users\benamor\Desktop\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
-C:\Users\benamor\Desktop\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
-C:\Users\benamor\Documents\Visual Studio 2013\Projects\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe.config
-C:\Users\benamor\Documents\Visual Studio 2013\Projects\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
-C:\Users\benamor\Documents\Visual Studio 2013\Projects\votes-master\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe.config
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.exe
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.pdb
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.exe
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\bin\Debug\VoteByLeapMotionProject.pdb
+C:\Users\Guénaël\Desktop\Taff\écoles\ESAIP\semestre 9\dotNET\rendu\votes-master\leap-sender\VoteByLeapMotionProject\obj\Debug\VoteByLeapMotionProject.csprojResolveAssemblyReference.cache

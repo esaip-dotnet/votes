@@ -1,5 +1,5 @@
-FROM windows10:trusty
-MAINTAINER adel 
+FROM ubuntu:trusty
+MAINTAINER pro@pichois.fr
 
 RUN apt-get update \
     && apt-get install -y \
@@ -12,6 +12,6 @@ RUN apt-get install -y python-reportlab
 
 COPY src/ .
 
-EXPOSE 5000
+EXPOSE 5004
 ENTRYPOINT ["python", "-u"]
 CMD ["app.py"]

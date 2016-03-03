@@ -22,7 +22,7 @@ namespace VoteByLeapMotionProject
         private String messageAttente = ".";
 
         /// <summary>
-        /// Permet d'initialiser les éléments de base de l'élection. 
+        /// Permet d'initialiser les éléments de base de l'élection.
         /// </summary>
         public void initSampleListener() {
             election = new Election("Referendum BDE");
@@ -31,7 +31,6 @@ namespace VoteByLeapMotionProject
             Choix choixNon = new Choix(2, "Non", 2);
             election.getListeChoix().Add(choixNon.getNombreDeMainPourChoix(), choixNon);
             afficheInfo(election);
-
         }
         private void SafeWriteLine(String line)
         {
@@ -67,7 +66,7 @@ namespace VoteByLeapMotionProject
             SafeWriteLine("Exited\n");
         }
         /// <summary>
-        /// Cette fonction est appelée en continue par le controller, une pause de 1 seconde par frame est faite dans cette fonction.
+        /// function called by the controler, the thread sleep 1 second/frame in this function
         /// </summary>
         /// <param name="controller"></param>
         public override void OnFrame(Controller controller)
@@ -144,7 +143,6 @@ namespace VoteByLeapMotionProject
             
             SafeWriteLine("En attente de positionnement des mains.");
       
-            election.getListeChoix().ContainsKey
             foreach (KeyValuePair<int, Choix> entreeDictionnaire in election.getListeChoix())
             {
                 SafeWriteLine("Pour voter " + entreeDictionnaire.Value.getNom() + ", positionnez " + entreeDictionnaire.Key + " main(s)");
